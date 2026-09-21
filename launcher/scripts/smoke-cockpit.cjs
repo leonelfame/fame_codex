@@ -29,7 +29,7 @@ function installFixture({ defaults, language = "en", platform = "win32", statePa
   };
   const logs = [{ at: "2026-09-14T10:00:00Z", level: "info", event: "browser.ready", detail: {} }];
   const snapshot = {
-    state, browser, logs, version: "5.0.16", platform, profile: "production",
+    state, browser, logs, version: "5.0.20", platform, profile: "production",
     profilePaths: { coreHome: "fixture", codexHome: "fixture", userData: "fixture" },
     connectorName: "Fame Codex", connectorNames: { manual: "Fame Codex", automatic: "Fame Codex" },
     mcpCredentialsConfigured: true, urls: { github: "", x: "", connectors: "", tunnels: "", keys: "" },
@@ -149,6 +149,12 @@ async function main() {
     assert.equal(await page.locator(".app-sidebar").count(), 0, "legacy sidebar is removed");
     await assertBounds(page);
     await assertWindowControlsClear(page, "win32");
+    // Repeated resize notifications with identical geometry must not cross IPC.
+    await page.waitForTimeout(150);
+    const boundsBefore = await page.evaluate(() => window.cockpitFixture.calls.filter(call => call[0] === "setBrowserBounds").length);
+    await page.evaluate(() => { for (let i = 0; i < 20; i++) window.dispatchEvent(new Event("resize")); });
+    await page.waitForTimeout(150);
+    assert.equal(await page.evaluate(() => window.cockpitFixture.calls.filter(call => call[0] === "setBrowserBounds").length), boundsBefore);
     await page.screenshot({ path: path.join(artifacts, "workspace.png") });
     await page.evaluate(() => { window.originalBrowserSlot = document.querySelector(".browser-viewport"); });
     const dock = page.locator(".cockpit-dock");
@@ -184,6 +190,12 @@ async function main() {
     await page.evaluate(() => { for (let i = 0; i < 305; i++) window.cockpitFixture.log(`event.${i}`); });
     await page.waitForFunction(() => document.querySelectorAll(".activity-row").length === 300);
     assert.match(await page.locator(".activity-row").first().innerText(), /304/);
+    await page.evaluate(() => {
+      window.retainedActivityRow = document.querySelector(".activity-row");
+      window.cockpitFixture.log("identity.probe");
+    });
+    await page.waitForFunction(() => document.querySelector(".activity-row")?.textContent.includes("identity"));
+    assert.equal(await page.evaluate(() => window.retainedActivityRow === document.querySelectorAll(".activity-row")[1]), true, "new logs preserve existing row DOM even at the retention limit");
     await page.screenshot({ path: path.join(artifacts, "activity.png") });
     await page.locator(".cockpit-activity").getByRole("button", { name: /expand/i }).click();
     await page.waitForFunction(() => !window.cockpitFixture.snapshot.browser.surfaceActive);
@@ -260,6 +272,9 @@ async function main() {
       await firstRun.getByRole("heading", { name: mode === "manual" ? "MCP" : copyFor("en").setupTitle, exact: true }).waitFor();
       assert.equal(await firstRun.evaluate(() => window.cockpitFixture.snapshot.browser.surfaceActive), false);
       await firstRun.screenshot({ path: path.join(artifacts, `first-run-${mode}.png`) });
+      await firstRun.setViewportSize({ width: 375, height: 700 });
+      assert.equal(await firstRun.locator(".cockpit-connections").evaluate(el => el.scrollWidth <= el.clientWidth + 1), true, "setup fits a narrow window");
+      await firstRun.screenshot({ path: path.join(artifacts, `first-run-${mode}-compact.png`) });
       await firstRun.close();
     }
     const mac = await browser.newPage({ viewport: { width: 1280, height: 800 } });

@@ -17,7 +17,7 @@
 .app-root[data-platform="darwin"] .cockpit-header { padding-left: 96px; padding-right: 24px; }
 .cockpit-header-identity, .cockpit-header-actions { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .cockpit-header-identity > div { display: grid; gap: 2px; }
-.cockpit-header-identity strong { color: var(--blue-100); font-size: 14px; letter-spacing: .2em; }
+.cockpit-header-identity strong { color: var(--color-text-primary); font-size: 14px; letter-spacing: .12em; }
 .cockpit-header-identity > div > span { color: var(--color-text-tertiary); font-size: 10px; }
 .cockpit-header-emblem {
   position: absolute;
@@ -32,7 +32,7 @@
 }
 .cockpit-header-emblem > .brand-mark { width: 52px; height: 52px; }
 .cockpit-header-drag { flex: 1; min-width: 12px; align-self: stretch; }
-.cockpit-live-status { display: flex; align-items: center; gap: 8px; color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+.cockpit-live-status { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
 .cockpit-live-status .state-dot { animation: none; }
 .cockpit-version { color: var(--color-text-tertiary); font: 11px var(--font-mono); }
 .cockpit-settings-button, .cockpit-update, .cockpit-text-action, .connections-local-nav button {
@@ -67,22 +67,23 @@
 .cockpit-activity .activity-heading { margin-top: 0; }
 .cockpit-reminder-row { flex: none; }
 .cockpit-reminder-row .session-refresh-reminder { position: static; width: auto; margin: 8px 16px; box-shadow: none; }
-.cockpit-dock { display: flex; justify-content: center; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--color-border); background: var(--color-background-sidebar); }
+.cockpit-dock { display: flex; justify-content: center; gap: 8px; padding: 8px 16px; border-top: 1px solid var(--color-border); background: var(--color-background-sidebar); }
 .cockpit-dock-button {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   width: min(200px, 32%); min-height: 44px; padding: 8px 16px;
-  border: 1px solid transparent; border-radius: 12px; background: transparent;
+  border: 1px solid transparent; border-radius: 8px; background: transparent;
   color: var(--color-text-secondary); font-size: 13px;
 }
 .cockpit-dock-button > svg, .cockpit-dock-button > .mcp-mark { width: 18px; height: 18px; flex: none; }
 .cockpit-dock-button:hover { background: var(--color-background-control-hover); }
-.cockpit-dock-button.is-active { border-color: var(--color-accent-line); background: var(--color-accent-soft); color: var(--blue-100); }
+.cockpit-dock-button.is-active { border-color: var(--color-accent-line); border-bottom: 2px solid var(--blue-200); background: var(--color-accent-soft); color: var(--blue-100); }
 .cockpit-connections { display: flex; flex-direction: column; width: 100%; height: 100%; min-height: 0; }
-.connections-header { display: flex; flex: none; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 32px 18px; }
+.connections-header { display: flex; flex: none; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 32px; background: var(--color-background-sidebar); }
 .connections-header > div > span { color: var(--blue-200); font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .12em; }
 .connections-header h1 { margin: 4px 0 0; font-size: 26px; font-weight: 600; letter-spacing: -.03em; }
-.connections-local-nav { display: flex; gap: 6px; }
-.connections-step-strip { display: flex; flex: none; align-items: center; justify-content: center; gap: 20px; padding: 12px 24px; border-block: 1px solid var(--color-border); background: var(--color-background-surface); color: var(--color-text-tertiary); }
+.connections-local-nav { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-background-surface-under); }
+.connections-local-nav button { border-color: transparent; background: transparent; }
+.connections-step-strip { display: flex; flex: none; align-items: center; justify-content: center; gap: 20px; padding: 12px 24px; border-block: 1px solid var(--color-border); background: var(--color-background-surface-under); color: var(--color-text-tertiary); }
 .connection-step { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; }
 .connection-step.is-complete { color: var(--color-text-primary); }
 .connections-surface { flex: 1; min-height: 0; }
@@ -142,11 +143,7 @@
 .browser-status-bar b { color: var(--blue-100); font: 11px var(--font-mono); }
 .browser-status-bar .state-dot { animation: none; }
 
-.browser-empty {
-  background:
-    radial-gradient(ellipse at 50% 38%, var(--color-accent-soft), transparent 55%),
-    var(--color-background-surface-under);
-}
+.browser-empty { background: var(--color-background-surface-under); }
 .browser-empty > .brand-mark {
   width: 72px;
   height: 72px;
@@ -169,9 +166,21 @@
 .content-scroll:not(.is-fit) .surface-brand-art { width: 120px; height: 90px; }
 .surface-brand-art .brand-mark { width: 76px; height: 76px; }
 .surface-header h1 { letter-spacing: -.035em; }
-.setup-row { min-height: 84px; }
+.setup-list { display: grid; gap: 12px; border: 0; border-radius: 0; background: transparent; }
+.setup-row, .setup-row:last-child {
+  min-height: 100px; padding: 20px; gap: 18px;
+  border: 1px solid var(--color-border); border-radius: 10px;
+  background: var(--color-background-surface);
+}
+.setup-row strong { font-size: 15px; font-weight: 600; }
+.setup-row p { max-width: 560px; font-size: 13px; line-height: 1.65; }
+.setup-index { border-radius: 8px; }
+.setup-actions .button-secondary { min-height: 38px; }
+.notice-row { border-radius: 0 8px 8px 0; padding: 12px 16px; line-height: 1.6; }
+.content-surface, .welcome { background-image: none; }
+.state-dot.is-busy, .action-dot.is-pulse { animation: none; }
 .activity-table { overflow: hidden; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-background-surface); }
-.activity-row { padding-right: 16px; padding-left: 16px; }
+.activity-row { padding-right: 16px; padding-left: 16px; content-visibility: auto; contain-intrinsic-size: auto 64px; }
 .activity-row:nth-child(even) { background: var(--color-background-control); }
 .activity-row time { color: var(--color-text-tertiary); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 .activity-row > div { min-width: 0; }
@@ -192,6 +201,8 @@ button:focus-visible, input:focus-visible, [role="tab"]:focus-visible {
 }
 
 @media (max-width: 760px) {
+  .setup-row, .setup-row:last-child { grid-template-columns: 34px minmax(0, 1fr); padding: 16px; gap: 12px; }
+  .setup-actions { grid-column: 2; }
   .cockpit-workspace.is-replaced { display: none; }
   .cockpit-settings { flex: 1; border-left: 0; }
   .cockpit-header { min-height: 104px; flex-wrap: wrap; gap: 8px; padding: 12px 16px; }

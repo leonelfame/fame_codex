@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import {
   useCallback,
   useEffect,
@@ -6,6 +6,7 @@ import {
   useId,
   useLayoutEffect,
   useMemo,
+  memo,
   useRef,
   useState,
   useSyncExternalStore,
@@ -21,6 +22,7 @@ import type {
   BridgeRouteState,
   DoctorReport,
   Language,
+  LogRecord,
   LauncherSnapshot,
   LauncherState,
   OperationState,
@@ -29,7 +31,7 @@ import type {
 
 const api = window.codexWebLauncher;
 const galaxyMark = new URL("./assets/astra-nebula-f.png", import.meta.url).href;
-const PANEL_TRANSITION = { duration: 0.3, ease: [0.16, 1, 0.3, 1] } as const;
+const PANEL_TRANSITION = { duration: 0.12, ease: [0.16, 1, 0.3, 1] } as const;
 const COCKPIT_NARROW_QUERY = "(max-width: 760px)";
 
 export function App() {
@@ -111,6 +113,7 @@ export function App() {
       data-profile={snapshot.profile}
       data-theme="dark"
     >
+      <MotionConfig reducedMotion="user" transition={PANEL_TRANSITION}>
       <AnimatePresence mode="wait">
         {!snapshot.state.onboardingComplete ? (
           <Onboarding
@@ -137,6 +140,7 @@ export function App() {
       <AnimatePresence>
         {error ? <ErrorToast copy={copy} message={error} onDismiss={() => setError(null)} /> : null}
       </AnimatePresence>
+      </MotionConfig>
     </div>
   );
 }
@@ -364,18 +368,29 @@ function LauncherShell({
     let cancelled = false;
     let animationFrame = 0;
     let observer: ResizeObserver | null = null;
+    // Reset on each surface activation; native bounds also depend on renderer zoom.
+    let lastBounds: { x: number; y: number; width: number; height: number; scale: number } | null = null;
 
     const measure = () => {
       if (!browserSlot) return;
       cancelAnimationFrame(animationFrame);
       animationFrame = requestAnimationFrame(() => {
+        if (cancelled) return;
         const rect = browserSlot.getBoundingClientRect();
+        const next = { x: rect.x, y: rect.y, width: rect.width, height: rect.height, scale: window.devicePixelRatio };
+        if (lastBounds && next.x === lastBounds.x && next.y === lastBounds.y
+          && next.width === lastBounds.width && next.height === lastBounds.height
+          && next.scale === lastBounds.scale) return;
+        lastBounds = next;
         void api!.setBrowserBounds({
           x: rect.x,
           y: rect.y,
           width: rect.width,
           height: rect.height,
-        }).catch((cause) => setError(messageOf(cause)));
+        }).catch((cause) => {
+          if (lastBounds === next) lastBounds = null;
+          if (!cancelled) setError(messageOf(cause));
+        });
       });
     };
 
@@ -513,11 +528,7 @@ function LauncherShell({
   };
 
   return (
-    <motion.main
-      animate={{ opacity: 1 }}
-      className="app-shell cockpit-shell"
-      initial={{ opacity: 0 }}
-    >
+    <main className="app-shell cockpit-shell">
       <CockpitHeader
         browser={browser}
         copy={copy}
@@ -702,7 +713,7 @@ function LauncherShell({
         ) : null}
       </AnimatePresence>
 
-    </motion.main>
+    </main>
   );
 }
 
@@ -972,7 +983,7 @@ function ConnectionStep({ complete, label }: { complete: boolean; label: string 
   );
 }
 
-function BrowserSurface({
+const BrowserSurface = memo(function BrowserSurface({
   browser,
   browserSlotRef,
   copy,
@@ -1228,7 +1239,7 @@ function BrowserSurface({
       </div>
     </section>
   );
-}
+});
 
 function ManualTurnGuide({
   copy,
@@ -1247,7 +1258,7 @@ function ManualTurnGuide({
   useEffect(() => {
     if (tab.manualState !== "awaiting-user" || !tab.manualDeadlineAt) return;
     setNow(Date.now());
-    const timer = window.setInterval(() => setNow(Date.now()), 250);
+    const timer = window.setInterval(() => setNow(Date.now()), 1_000);
     return () => window.clearInterval(timer);
   }, [tab.manualDeadlineAt, tab.manualState]);
   const deadline = tab.manualDeadlineAt ? Date.parse(tab.manualDeadlineAt) : Number.NaN;
@@ -1715,7 +1726,7 @@ function McpSurface({
   );
 }
 
-function ActivitySurface({
+const ActivitySurface = memo(function ActivitySurface({
   copy,
   language,
   activityStore,
@@ -1728,6 +1739,15 @@ function ActivitySurface({
 }) {
   const logs = useSyncExternalStore(activityStore.subscribe, activityStore.getSnapshot);
   const newestFirst = useMemo(() => [...logs].reverse(), [logs]);
+  // IPC records keep their identity in the store; indices shift on every prepend.
+  const [rowKeys] = useState(() => {
+    const keys = new WeakMap<LogRecord, number>();
+    let next = 0;
+    return (record: LogRecord) => {
+      if (!keys.has(record)) keys.set(record, next++);
+      return keys.get(record)!;
+    };
+  });
   return (
     <ContentSurface subtitle={copy.activitySubtitle} title={copy.activityTitle}>
       <div className="section-heading activity-heading">
@@ -1746,20 +1766,26 @@ function ActivitySurface({
             <span>{copy.noLogs}</span>
           </div>
         ) : null}
-        {newestFirst.map((record, index) => (
-          <div className="activity-row" key={`${record.at}-${record.event}-${index}`}>
-            <StateDot state={record.level === "error" ? "error" : record.level === "warning" ? "busy" : "ready"} />
-            <div>
-              <strong>{humanEvent(record.event)}</strong>
-              <span>{logDetail(record.detail)}</span>
-            </div>
-            <time>{formatTime(record.at, language)}</time>
-          </div>
+        {newestFirst.map((record) => (
+          <ActivityRow key={rowKeys(record)} record={record} language={language} />
         ))}
       </div>
     </ContentSurface>
   );
-}
+});
+
+const ActivityRow = memo(function ActivityRow({ record, language }: { record: LogRecord; language: Language }) {
+  return (
+    <div className="activity-row">
+      <StateDot state={record.level === "error" ? "error" : record.level === "warning" ? "busy" : "ready"} />
+      <div>
+        <strong>{humanEvent(record.event)}</strong>
+        <span>{logDetail(record.detail)}</span>
+      </div>
+      <time>{formatTime(record.at, language)}</time>
+    </div>
+  );
+});
 
 function SettingsSurface({
   configureInteractionMode,
