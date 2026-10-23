@@ -3,13 +3,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v5.0.21/fame-codex-5.0.21-win-x64.exe"><img src="assets/readme/download-windows.svg" width="224" height="64" alt="Windows · x64"></a>&nbsp;
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v5.0.21/fame-codex-5.0.21-mac-arm64.dmg"><img src="assets/readme/download-macos.svg" width="224" height="64" alt="macOS · Apple silicon"></a>&nbsp;
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v5.0.21/fame-codex-5.0.21-linux-x64.AppImage"><img src="assets/readme/download-linux.svg" width="224" height="64" alt="Linux · x64"></a>
+  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.13/fame-codex-6.1.13-win-x64.exe"><img src="assets/readme/download-windows.svg" width="224" height="64" alt="Windows · x64"></a>&nbsp;
+  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.13/fame-codex-6.1.13-mac-arm64.dmg"><img src="assets/readme/download-macos.svg" width="224" height="64" alt="macOS · Apple silicon"></a>&nbsp;
+  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.13/fame-codex-6.1.13-linux-x64.AppImage"><img src="assets/readme/download-linux.svg" width="224" height="64" alt="Linux · x64"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v5.0.21/fame-codex-5.0.21-mac-x64.dmg">macOS Intel</a> · <a href="https://github.com/leonelfame/fame_codex/releases/latest">すべてのリリース</a>
+  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.13/fame-codex-6.1.13-mac-x64.dmg">macOS Intel</a> · <a href="https://github.com/leonelfame/fame_codex/releases/latest">すべてのリリース</a>
 </p>
 
 <p align="center">
@@ -36,7 +36,7 @@ Full ハーネスモードでは、MCP を通じて ChatGPT を現在のタス�
 
 1. **ランチャーをインストール**：上のボタンから、お使いの OS 向けのアプリをダウンロードします。
 2. **ChatGPT にサインイン**：内蔵ブラウザーでログインし、ブラウザーのスモークテストを実行します。
-3. **モデルをインストール**：Codex を一度再起動し、**ChatGPT Web — …** モデルを選択します。
+3. **モデルをインストール**：Codex を一度再起動します。自動モードでは、名前の末尾が **(Web)** のモデルを選択します。Pro はバージョン別の項目、Sol の推論レベルは Effort で選択します。Zero Risk は専用の項目を引き続き使用します。
 4. **ツールを使って開発する場合**：ランチャーの **MCP** を開き、下記の Full ハーネス設定を完了します。
 
 ブラウザーとランタイムはアプリに含まれています。Chrome、Node、Bun の別途インストールは不要です。
@@ -73,7 +73,7 @@ irm https://github.com/leonelfame/fame_codex/releases/latest/download/install-la
 | **Full harness (With Automation)** | 自動 | MCP 経由で利用可能 |
 | **Zero Risk** | 手動で貼り付けて送信 | 専用 MCP コネクタ経由で利用可能 |
 
-Zero Risk は ChatGPT ページを読み取ったり操作したりしません。モデルと `Fame Codex Zero Risk` コネクタを自分で選び、用意されたプロンプトを貼り付けて送信し、ランチャーで **Sent** を確認してください。自動モードの各モデル項目は固定の ChatGPT モードに対応し、Codex の Effort や Speed では上書きされません。
+Zero Risk は ChatGPT ページを読み取ったり操作したりしません。モデルと `Fame Codex Zero Risk` コネクタを自分で選び、用意されたプロンプトを貼り付けて送信し、ランチャーで **Sent** を確認してください。名前の末尾が **(Web)** の自動モデルでは、対応する Effort を Codex で選択できます。コンテキスト上限を維持するため、Instant と各 Pro バージョンは別の項目になります。既存のタスクに保存された旧モデル項目は、従来の固定モードを維持します。
 
 <a id="full-harness"></a>
 

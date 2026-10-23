@@ -3,13 +3,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v5.0.21/fame-codex-5.0.21-win-x64.exe"><img src="assets/readme/download-windows.svg" width="224" height="64" alt="Windows · x64"></a>&nbsp;
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v5.0.21/fame-codex-5.0.21-mac-arm64.dmg"><img src="assets/readme/download-macos.svg" width="224" height="64" alt="macOS · Apple silicon"></a>&nbsp;
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v5.0.21/fame-codex-5.0.21-linux-x64.AppImage"><img src="assets/readme/download-linux.svg" width="224" height="64" alt="Linux · x64"></a>
+  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.13/fame-codex-6.1.13-win-x64.exe"><img src="assets/readme/download-windows.svg" width="224" height="64" alt="Windows · x64"></a>&nbsp;
+  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.13/fame-codex-6.1.13-mac-arm64.dmg"><img src="assets/readme/download-macos.svg" width="224" height="64" alt="macOS · Apple silicon"></a>&nbsp;
+  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.13/fame-codex-6.1.13-linux-x64.AppImage"><img src="assets/readme/download-linux.svg" width="224" height="64" alt="Linux · x64"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v5.0.21/fame-codex-5.0.21-mac-x64.dmg">macOS Intel</a> · <a href="https://github.com/leonelfame/fame_codex/releases/latest">所有版本</a>
+  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.13/fame-codex-6.1.13-mac-x64.dmg">macOS Intel</a> · <a href="https://github.com/leonelfame/fame_codex/releases/latest">所有版本</a>
 </p>
 
 <p align="center">
@@ -36,7 +36,7 @@
 
 1. **安装启动器**：点击上方对应系统的下载按钮。
 2. **登录 ChatGPT**：在内置浏览器中登录并运行浏览器冒烟测试。
-3. **安装模型**：重启一次 Codex，然后选择 **ChatGPT Web — …** 模型。
+3. **安装模型**：重启一次 Codex。在自动模式下，选择名称以 **(Web)** 结尾的模型。Pro 版本使用独立条目，Sol 推理等级通过 Effort 选择。Zero Risk 保留专用条目。
 4. **需要使用工具编程时**：打开启动器中的 **MCP**，完成下方的完整 harness 设置。
 
 应用已包含浏览器和运行时，无需另外安装 Chrome、Node 或 Bun。
@@ -73,7 +73,7 @@ irm https://github.com/leonelfame/fame_codex/releases/latest/download/install-la
 | **Full harness (With Automation)** | 自动 | 支持，通过 MCP |
 | **Zero Risk** | 手动粘贴并发送 | 支持，通过独立 MCP 连接器 |
 
-Zero Risk 不读取或操作 ChatGPT 页面。请自行选择模型和 `Fame Codex Zero Risk` 连接器，粘贴并发送准备好的提示词，再在启动器中确认 **Sent**。自动模式的每个模型条目对应固定的 ChatGPT 模式；Codex 的 Effort 和 Speed 选项不会覆盖它。
+Zero Risk 不读取或操作 ChatGPT 页面。请自行选择模型和 `Fame Codex Zero Risk` 连接器，粘贴并发送准备好的提示词，再在启动器中确认 **Sent**。名称以 **(Web)** 结尾的自动模型会在 Codex 中提供其支持的 Effort 选项。Instant 和各个 Pro 版本使用独立条目，以保留各自的上下文额度；旧任务中保存的模型条目仍使用原来的固定模式。
 
 <a id="full-harness"></a>
 

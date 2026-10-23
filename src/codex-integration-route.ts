@@ -166,8 +166,21 @@ export function managedJournalIsActive(journal: ManagedRouteJournal): boolean {
 }
 
 export function verifyManagedJournalState(text: string, journal: ManagedRouteJournal): void {
-  if (journal.version === 3 || journal.active) verifyInstalledRoute(text, journal);
+  // Recovery selects the journal that owns the physical edits, even if a user-selected
+  // provider now bypasses the bridge. That installation must remain removable.
+  if (journal.version === 3 || journal.active) verifyOwnedInstalledRoute(text, journal);
   else verifyRestoredRoute(text, journal);
+}
+
+export function assertBuiltinModelProvider(text: string): void {
+  const { model_provider: provider } = Bun.TOML.parse(splitLines(text).join("\n")) as { model_provider?: unknown };
+  if (provider !== undefined && provider !== "openai") {
+    throw new Error(
+      "Codex model_provider selects a custom provider; the bridge requires the built-in openai provider. "
+      + "Select model_provider = \"openai\" or remove that selection before setup or reconnect. "
+      + "--replace-codex-route only replaces the route URL; it does not change your provider configuration.",
+    );
+  }
 }
 
 export function replacementBaseline(
@@ -237,6 +250,7 @@ export function installRoute(
   previous: CodexIntegrationJournal["previous"];
   previousRealtimeWebrtcCallBaseUrl: PreviousAssignment;
 } {
+  assertBuiltinModelProvider(text);
   const document = parseDocument(text);
   const previous = assignments(document.lines);
   if (previous.openai_base_url.present && !replaceExistingRoute) {
@@ -281,6 +295,11 @@ export function installRoute(
 }
 
 export function verifyInstalledRoute(text: string, journal: ManagedRouteJournal): void {
+  verifyOwnedInstalledRoute(text, journal);
+  assertBuiltinModelProvider(text);
+}
+
+function verifyOwnedInstalledRoute(text: string, journal: ManagedRouteJournal): void {
   const lines = splitLines(text);
   const current = assignments(lines);
   if (current.openai_base_url.value !== journal.installed.openai_base_url) {
@@ -430,7 +449,7 @@ export function assertPreservedPreviousRealtimeAssignment(
 }
 
 export function restoreManagedRoute(text: string, journal: ManagedRouteJournal): string {
-  verifyInstalledRoute(text, journal);
+  verifyOwnedInstalledRoute(text, journal);
   const withoutHook = journal.version === 10
     ? restoreCodexInterruptHook(text, journal.interruptHook)
     : text;
