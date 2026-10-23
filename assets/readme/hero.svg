@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280" role="img" aria-labelledby="title desc">
+  <title id="title">Fame Codex by Leonelfame</title>
+  <desc id="desc">Blue terminal-style desktop bridge connecting ChatGPT, MCP, and Codex. Pixel F application icon.</desc>
+  <rect width="960" height="280" fill="#0b1017"/>
+  <rect x="1" y="1" width="958" height="278" fill="none" stroke="#344b63" stroke-width="2"/>
+  <path d="M1 43h958M1 237h958" stroke="#344b63" stroke-width="2"/>
+  <g font-family="'Courier New',monospace" fill="#93c3ff">
+    <text x="24" y="28" font-size="16">Fame Codex</text>
+    <text x="936" y="28" text-anchor="end" font-size="14">leonelfame/fame_codex</text>
+    <text x="224" y="127" font-size="52" font-weight="700" fill="#d2eeff">FAME CODEX</text>
+    <text x="226" y="167" font-size="21">ChatGPT → MCP → Codex</text>
+    <text x="226" y="201" font-size="17">Your projects. Files, commands, and tests.</text>
+    <text x="24" y="263" font-size="14">[ Desktop bridge ]</text>
+    <text x="936" y="263" text-anchor="end" font-size="14">by Leonelfame</text>
+  </g>
+  <g transform="translate(48 76) scale(4)" shape-rendering="crispEdges"><rect x="4" y="0" width="24" height="32" fill="#63b5ff"/>
+  <rect x="2" y="2" width="28" height="28" fill="#63b5ff"/>
+  <rect x="0" y="4" width="32" height="24" fill="#63b5ff"/>
+  <rect x="4" y="2" width="24" height="28" fill="#0b1420"/>
+  <rect x="2" y="4" width="28" height="24" fill="#0b1420"/>
+  <rect x="11" y="9" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="9" width="2" height="2" fill="#285d96"/>
+  <rect x="15" y="9" width="2" height="2" fill="#285d96"/>
+  <rect x="17" y="9" width="2" height="2" fill="#285d96"/>
+  <rect x="19" y="9" width="2" height="2" fill="#285d96"/>
+  <rect x="21" y="9" width="2" height="2" fill="#285d96"/>
+  <rect x="23" y="9" width="2" height="2" fill="#285d96"/>
+  <rect x="11" y="11" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="11" width="2" height="2" fill="#285d96"/>
+  <rect x="15" y="11" width="2" height="2" fill="#285d96"/>
+  <rect x="17" y="11" width="2" height="2" fill="#285d96"/>
+  <rect x="19" y="11" width="2" height="2" fill="#285d96"/>
+  <rect x="21" y="11" width="2" height="2" fill="#285d96"/>
+  <rect x="23" y="11" width="2" height="2" fill="#285d96"/>
+  <rect x="11" y="13" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="13" width="2" height="2" fill="#285d96"/>
+  <rect x="11" y="15" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="15" width="2" height="2" fill="#285d96"/>
+  <rect x="11" y="17" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="17" width="2" height="2" fill="#285d96"/>
+  <rect x="15" y="17" width="2" height="2" fill="#285d96"/>
+  <rect x="17" y="17" width="2" height="2" fill="#285d96"/>
+  <rect x="19" y="17" width="2" height="2" fill="#285d96"/>
+  <rect x="21" y="17" width="2" height="2" fill="#285d96"/>
+  <rect x="11" y="19" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="19" width="2" height="2" fill="#285d96"/>
+  <rect x="15" y="19" width="2" height="2" fill="#285d96"/>
+  <rect x="17" y="19" width="2" height="2" fill="#285d96"/>
+  <rect x="19" y="19" width="2" height="2" fill="#285d96"/>
+  <rect x="21" y="19" width="2" height="2" fill="#285d96"/>
+  <rect x="11" y="21" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="21" width="2" height="2" fill="#285d96"/>
+  <rect x="11" y="23" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="23" width="2" height="2" fill="#285d96"/>
+  <rect x="11" y="25" width="2" height="2" fill="#285d96"/>
+  <rect x="13" y="25" width="2" height="2" fill="#285d96"/>
+  <rect x="9" y="7" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="7" width="2" height="2" fill="#d2eeff"/>
+  <rect x="13" y="7" width="2" height="2" fill="#d2eeff"/>
+  <rect x="15" y="7" width="2" height="2" fill="#d2eeff"/>
+  <rect x="17" y="7" width="2" height="2" fill="#d2eeff"/>
+  <rect x="19" y="7" width="2" height="2" fill="#d2eeff"/>
+  <rect x="21" y="7" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="9" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="9" width="2" height="2" fill="#d2eeff"/>
+  <rect x="13" y="9" width="2" height="2" fill="#d2eeff"/>
+  <rect x="15" y="9" width="2" height="2" fill="#d2eeff"/>
+  <rect x="17" y="9" width="2" height="2" fill="#d2eeff"/>
+  <rect x="19" y="9" width="2" height="2" fill="#d2eeff"/>
+  <rect x="21" y="9" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="11" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="11" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="13" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="13" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="15" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="15" width="2" height="2" fill="#d2eeff"/>
+  <rect x="13" y="15" width="2" height="2" fill="#d2eeff"/>
+  <rect x="15" y="15" width="2" height="2" fill="#d2eeff"/>
+  <rect x="17" y="15" width="2" height="2" fill="#d2eeff"/>
+  <rect x="19" y="15" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="17" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="17" width="2" height="2" fill="#d2eeff"/>
+  <rect x="13" y="17" width="2" height="2" fill="#d2eeff"/>
+  <rect x="15" y="17" width="2" height="2" fill="#d2eeff"/>
+  <rect x="17" y="17" width="2" height="2" fill="#d2eeff"/>
+  <rect x="19" y="17" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="19" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="19" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="21" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="21" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="23" width="2" height="2" fill="#d2eeff"/>
+  <rect x="11" y="23" width="2" height="2" fill="#d2eeff"/>
+  <rect x="9" y="7" width="14" height="2" fill="#ffffff"/></g>
+</svg>
