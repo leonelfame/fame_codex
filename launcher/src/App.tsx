@@ -203,7 +203,7 @@ function Onboarding({
     }
   };
 
-  const openSocial = async (target: "github" | "x") => {
+  const openSocial = async (target: "github") => {
     setBusy(true);
     setError(null);
     try {
@@ -288,13 +288,6 @@ function Onboarding({
                 label={snapshot.state.githubOpened ? localized.starred : localized.star}
                 onClick={() => openSocial("github")}
               />
-              <WelcomeAction
-                complete={snapshot.state.xOpened}
-                disabled={busy}
-                icon="x"
-                label={snapshot.state.xOpened ? localized.followed : localized.follow}
-                onClick={() => openSocial("x")}
-              />
             </div>
           )}
         </section>
@@ -321,7 +314,7 @@ function Onboarding({
           ))}
         </div>
         <PrimaryButton
-          disabled={busy || (stage === "support" && (!snapshot.state.githubOpened || !snapshot.state.xOpened))}
+          disabled={busy || (stage === "support" && !snapshot.state.githubOpened)}
           onClick={isLanguage
             ? chooseLanguage
             : isInteraction ? () => setStage("support") : finish}
@@ -601,11 +594,6 @@ function LauncherShell({
                   icon="github"
                   label="GitHub"
                   onClick={() => void api!.openExternal(snapshot.urls.github).catch((cause) => setError(messageOf(cause)))}
-                />
-                <IconButton
-                  icon="x"
-                  label="X"
-                  onClick={() => void api!.openExternal(snapshot.urls.x).catch((cause) => setError(messageOf(cause)))}
                 />
               </div>
             </div>
@@ -2413,7 +2401,7 @@ function WelcomeAction({
 }: {
   complete: boolean;
   disabled?: boolean;
-  icon: "github" | "x";
+  icon: "github";
   label: string;
   onClick: () => void;
 }) {
