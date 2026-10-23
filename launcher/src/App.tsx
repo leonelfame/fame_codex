@@ -1,5 +1,4 @@
 import languages from "../electron/languages.json";
-import { AnimatePresence, motion } from "motion/react";
 import {
   useCallback,
   useEffect,
@@ -7,10 +6,8 @@ import {
   useMemo,
   useRef,
   useState,
-  type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
 } from "react";
-import { createPortal } from "react-dom";
 import { copyFor, localizeRuntimeMessage, type Copy } from "./i18n";
 import { Icon, type IconName } from "./icons";
 import { LimitsSurface } from "./LimitsSurface";
@@ -30,13 +27,8 @@ import type {
 } from "./types";
 
 const api = window.codexWebLauncher;
-const PANEL_TRANSITION = { duration: 0.3, ease: [0.16, 1, 0.3, 1] } as const;
-const COMPACT_SIDEBAR_QUERY = "(max-width: 820px)";
-const MCP_GUIDE_MEDIA = [
-  new URL("./assets/mcp-create-tunnel.mp4", import.meta.url).href,
-  new URL("./assets/mcp-connect-connector.mp4", import.meta.url).href,
-  new URL("./assets/mcp-connect-connector.mp4", import.meta.url).href,
-] as const;
+const COMPACT_SIDEBAR_QUERY = "(max-width: 680px)";
+const SURFACE_SHORTCUTS: readonly Surface[] = ["browser", "setup", "mcp", "activity", "limits", "settings"];
 
 export function App() {
   const [snapshot, setSnapshot] = useState<LauncherSnapshot | null>(null);
@@ -91,7 +83,19 @@ export function App() {
       }
       if (next.status === "failed" && next.name !== "mcp-verification") setError(next.message);
     });
-    const unsubscribeLog = api.onLog((record) => setLogs((current) => [...current.slice(-299), record]));
+    let pendingLogs: LogRecord[] = [];
+    let logFlush: ReturnType<typeof setTimeout> | undefined;
+    const unsubscribeLog = api.onLog((record) => {
+      pendingLogs.push(record);
+      if (pendingLogs.length > 300) pendingLogs = pendingLogs.slice(-300);
+      if (logFlush !== undefined) return;
+      logFlush = setTimeout(() => {
+        const batch = pendingLogs;
+        pendingLogs = [];
+        logFlush = undefined;
+        if (!cancelled) setLogs(current => [...current, ...batch].slice(-300));
+      }, 150);
+    });
     const unsubscribeUpdate = api.onUpdateState((update) => {
       setSnapshot((current) => current ? { ...current, update } : current);
     });
@@ -102,6 +106,7 @@ export function App() {
       unsubscribeBrowser();
       unsubscribeOperation();
       unsubscribeLog();
+      clearTimeout(logFlush);
       unsubscribeUpdate();
     };
   }, []);
@@ -131,7 +136,7 @@ export function App() {
       data-profile={snapshot.profile}
       data-theme="dark"
     >
-      <AnimatePresence mode="wait">
+      <>
         {!snapshot.state.onboardingComplete ? (
           <Onboarding
             key="onboarding"
@@ -153,10 +158,10 @@ export function App() {
             updateState={updateState}
           />
         )}
-      </AnimatePresence>
-      <AnimatePresence>
+      </>
+      <>
         {error ? <ErrorToast copy={copy} message={error} onDismiss={() => setError(null)} /> : null}
-      </AnimatePresence>
+      </>
     </div>
   );
 }
@@ -223,12 +228,10 @@ function Onboarding({
   };
 
   return (
-    <motion.main
-      animate={{ opacity: 1 }}
+    <main
+
       className="welcome"
-      exit={{ opacity: 0 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: 0.22 }}
+
     >
       <header className="welcome-top draggable">
         <div className="welcome-brand no-drag">
@@ -239,14 +242,13 @@ function Onboarding({
         <span className="welcome-version no-drag">v{snapshot.version}</span>
       </header>
 
-      <AnimatePresence mode="wait">
-        <motion.section
-          animate={{ opacity: 1, y: 0 }}
+      <>
+        <section
+
           className="welcome-stage"
-          exit={{ opacity: 0, y: -8 }}
-          initial={{ opacity: 0, y: 8 }}
+
           key={stage}
-          transition={PANEL_TRANSITION}
+
         >
           <span className="welcome-kicker">0{stageIndex + 1}</span>
           <h1>{isLanguage
@@ -295,8 +297,8 @@ function Onboarding({
               />
             </div>
           )}
-        </motion.section>
-      </AnimatePresence>
+        </section>
+      </>
 
       <footer className="welcome-footer">
         <div>
@@ -327,7 +329,7 @@ function Onboarding({
           {stage === "support" ? localized.finishWelcome : localized.continue}
         </PrimaryButton>
       </footer>
-    </motion.main>
+    </main>
   );
 }
 
@@ -388,7 +390,7 @@ function LauncherShell({
   const updateVersion = "version" in snapshot.update ? snapshot.update.version : null;
   const selectedManualTab = browser?.tabs.find(tab => tab.active && tab.interactionMode === "manual");
   const approvalTabs = browser?.tabs.filter(tab => tab.status === "running" && tab.approvalPending) ?? [];
-  const limits = useLimits(api!, snapshot.state.browserInteractionMode === "manual");
+  const limits = useLimits(api!, snapshot.state.browserInteractionMode === "manual", surface === "limits");
   const limitsCopy = limitsCopyFor(language);
 
   useEffect(() => {
@@ -490,6 +492,22 @@ function LauncherShell({
     if (compactSidebar) setSidebarOpen(false);
   };
 
+  useEffect(() => {
+    const navigateByKey = (event: KeyboardEvent) => {
+      if (!event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.repeat) return;
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.isContentEditable || target.closest("input, textarea, select"))) return;
+      const next = SURFACE_SHORTCUTS[Number(event.key) - 1];
+      if (!next) return;
+      event.preventDefault();
+      if (next === "mcp") setMcpTargetMode(null);
+      setSurface(next);
+      if (compactSidebar) setSidebarOpen(false);
+    };
+    window.addEventListener("keydown", navigateByKey);
+    return () => window.removeEventListener("keydown", navigateByKey);
+  }, [compactSidebar]);
+
   const installUpdate = async () => {
     setError(null);
     try {
@@ -542,10 +560,10 @@ function LauncherShell({
   };
 
   return (
-    <motion.main
-      animate={{ opacity: 1 }}
+    <main
+
       className={`app-shell${compactSidebar ? " is-compact" : ""}${sidebarOpen ? " is-sidebar-open" : ""}`}
-      initial={{ opacity: 0 }}
+
     >
       <TitleBar
         copy={copy}
@@ -564,11 +582,11 @@ function LauncherShell({
         />
       ) : null}
 
-      <motion.aside
-        animate={{ width: sidebarOpen ? "var(--sidebar-width)" : 0 }}
+      <aside
+
         className="app-sidebar"
-        initial={false}
-        transition={{ type: "spring", duration: 0.5, bounce: 0.08 }}
+        inert={!sidebarOpen}
+
       >
         <div className="sidebar-clip">
           <div className="sidebar-content">
@@ -602,6 +620,7 @@ function LauncherShell({
                       ? <ActionDot tone="error" />
                       : null}
                   icon="browser"
+                  shortcut={1}
                   label={copy.browser}
                   onClick={() => navigateSurface("browser")}
                 />
@@ -611,6 +630,7 @@ function LauncherShell({
                   active={surface === "setup"}
                   badge={needsSetup ? <ActionDot pulse tone="required" /> : null}
                   icon="setup"
+                  shortcut={2}
                   label={copy.setup}
                   onClick={() => navigateSurface("setup")}
                 />
@@ -618,6 +638,7 @@ function LauncherShell({
                   active={surface === "mcp"}
                   badge={mcpOptional ? <ActionDot tone="optional" /> : null}
                   icon="mcp"
+                  shortcut={3}
                   label="MCP"
                   onClick={() => {
                     setMcpTargetMode(null);
@@ -626,7 +647,7 @@ function LauncherShell({
                 />
               </SidebarGroup>
               <SidebarGroup label={copy.runtime}>
-                <SidebarItem active={surface === "activity"} icon="activity" label={copy.activity} onClick={() => navigateSurface("activity")} />
+                <SidebarItem active={surface === "activity"} icon="activity" shortcut={4} label={copy.activity} onClick={() => navigateSurface("activity")} />
                 <SidebarItem
                   active={surface === "limits"}
                   badge={limits.needsAttention ? (
@@ -635,6 +656,7 @@ function LauncherShell({
                     </span>
                   ) : null}
                   icon="logs"
+                  shortcut={5}
                   label={limitsCopy.title}
                   onClick={() => navigateSurface("limits")}
                 />
@@ -655,13 +677,14 @@ function LauncherShell({
               <SidebarItem
                 active={surface === "settings"}
                 icon="settings"
+                shortcut={6}
                 label={copy.settings}
                 onClick={() => navigateSurface("settings")}
               />
             </div>
           </div>
         </div>
-      </motion.aside>
+      </aside>
 
       <section className="workspace">
         {approvalTabs.map(tab => (
@@ -679,14 +702,13 @@ function LauncherShell({
             }}>{copy.openChatgpt}</SecondaryButton>
           </div>
         ))}
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            animate={{ opacity: 1 }}
+        <>
+          <div
+
             className="surface-transition"
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
+
             key={surface}
-            transition={{ duration: 0.16 }}
+
           >
             {surface === "browser" ? (
               <BrowserSurface
@@ -767,11 +789,18 @@ function LauncherShell({
                 updateState={updateState}
               />
             ) : null}
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        </>
       </section>
 
-      <AnimatePresence>
+      <footer className="terminal-statusbar">
+        <span>{devProfile ? "DEV" : "PROD"} / {surface}</span>
+        <span className="terminal-runtime-state">{browser?.status ?? "idle"}</span>
+        <span className="terminal-key-hint">Alt+1–6</span>
+        <span>v{snapshot.version}</span>
+      </footer>
+
+      <>
         {biggerContextRecommendationOpen ? (
           <BiggerContextRecommendation
             busy={biggerContextRecommendationBusy || operation?.status === "running"}
@@ -781,9 +810,9 @@ function LauncherShell({
             onClose={() => setBiggerContextRecommendationOpen(false)}
           />
         ) : null}
-      </AnimatePresence>
+      </>
 
-      <AnimatePresence>
+      <>
         {sessionReminderDue && !biggerContextRecommendationOpen ? (
           <SessionRefreshReminder
             busy={sessionReminderBusy}
@@ -792,8 +821,8 @@ function LauncherShell({
             onLogout={() => void logoutChatGpt()}
           />
         ) : null}
-      </AnimatePresence>
-    </motion.main>
+      </>
+    </main>
   );
 }
 
@@ -818,6 +847,7 @@ function TitleBar({
           label={sidebarOpen ? copy.hideSidebar : copy.showSidebar}
           onClick={toggleSidebar}
         />
+        <span className="terminal-title"><BrandMark small /><strong>{copy.product}</strong></span>
         {devProfile ? <span className="titlebar-dev-profile">{copy.devBadge}</span> : null}
       </div>
     </header>
@@ -841,6 +871,7 @@ function SidebarItem({
   label,
   onClick,
   tone,
+  shortcut,
 }: {
   active: boolean;
   badge?: ReactNode;
@@ -849,16 +880,20 @@ function SidebarItem({
   label: string;
   onClick: () => void;
   tone?: "update";
+  shortcut?: number;
 }) {
   return (
     <button
       aria-current={active ? "page" : undefined}
+      aria-keyshortcuts={shortcut ? `Alt+${shortcut}` : undefined}
+      title={shortcut ? `${label} (Alt+${shortcut})` : undefined}
       className={`sidebar-item${active ? " is-active" : ""}${tone === "update" ? " is-update" : ""}`}
       disabled={disabled}
       onClick={onClick}
       type="button"
     >
-      {icon === "mcp" ? <McpMark /> : <Icon name={icon} />}
+      {shortcut ? <small aria-hidden="true" className="terminal-nav-key">{shortcut}</small>
+        : icon === "mcp" ? <McpMark /> : <Icon name={icon} />}
       <span>{label}</span>
       {badge ? <i className="sidebar-item-badge">{badge}</i> : null}
     </button>
@@ -1131,7 +1166,7 @@ function ManualTurnGuide({
   useEffect(() => {
     if (tab.manualState !== "awaiting-user" || !tab.manualDeadlineAt) return;
     setNow(Date.now());
-    const timer = window.setInterval(() => setNow(Date.now()), 250);
+    const timer = window.setInterval(() => setNow(Date.now()), 1_000);
     return () => window.clearInterval(timer);
   }, [tab.manualDeadlineAt, tab.manualState]);
   const deadline = tab.manualDeadlineAt ? Date.parse(tab.manualDeadlineAt) : Number.NaN;
@@ -1347,7 +1382,6 @@ function McpSurface({
       body: manualInteraction ? copy.manualMcpStepThreeBody : copy.mcpStepThreeBody,
     },
   ], [copy, manualInteraction]);
-  const guideMedia = MCP_GUIDE_MEDIA[step];
 
   const move = async (next: number) => {
     setStep(next);
@@ -1422,6 +1456,7 @@ function McpSurface({
         {steps.map((item, index) => (
           <button
             className={`${index === step ? "is-active" : ""}${index < step || (index === 2 && verified) ? " is-complete" : ""}`}
+            aria-current={index === step ? "step" : undefined}
             disabled={busy || index > step}
             key={item.title}
             onClick={() => void safeMove(index)}
@@ -1434,25 +1469,10 @@ function McpSurface({
       </div>
 
       <div className="mcp-stage">
-        {guideMedia ? (
-          <TutorialVideo
-            copy={copy}
-            label={`${copy.guideVideo}: ${steps[step]!.title}`}
-            src={guideMedia}
-          />
-        ) : null}
 
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.section
-            animate={{ opacity: 1, x: 0 }}
-            className="wizard-content"
-            exit={{ opacity: 0, x: -8 }}
-            initial={{ opacity: 0, x: 8 }}
-            key={step}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
+        <>
+          <section className="wizard-content" key={step}>
             <header>
-              <span>0{step + 1}</span>
               <div>
                 <h2>{steps[step]!.title}</h2>
                 <p>{steps[step]!.body}</p>
@@ -1563,8 +1583,8 @@ function McpSurface({
                 {doctor ? <DoctorSummary copy={copy} language={language} report={doctor} /> : null}
               </div>
             ) : null}
-          </motion.section>
-        </AnimatePresence>
+          </section>
+        </>
       </div>
 
       <div className="wizard-footer">
@@ -1624,10 +1644,23 @@ function ActivitySurface({
   setError: (error: string | null) => void;
 }) {
   const [now, setNow] = useState(Date.now);
+  const hasActiveTasks = browser?.tabs.some(tab => tab.status === "running") === true;
   useEffect(() => {
-    const timer = setInterval(() => setNow(Date.now()), 1_000);
-    return () => clearInterval(timer);
-  }, []);
+    if (!hasActiveTasks) return;
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const syncClock = () => {
+      clearInterval(timer);
+      if (document.hidden) return;
+      setNow(Date.now());
+      timer = setInterval(() => setNow(Date.now()), 1_000);
+    };
+    syncClock();
+    document.addEventListener("visibilitychange", syncClock);
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", syncClock);
+    };
+  }, [hasActiveTasks]);
   const states = {
     preparing: copy.activityPreparing, sending: copy.activitySending, chatgpt: copy.activityChatgpt,
     tools: copy.activityTools, approval: copy.activityApproval, unknown: copy.activityUnknown,
@@ -2206,108 +2239,6 @@ function ZeroRiskModelMenu({
   );
 }
 
-function TutorialVideo({ copy, label, src }: { copy: Copy; label: string; src: string }) {
-  const [expanded, setExpanded] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const inlineVideo = useRef<HTMLVideoElement>(null);
-  const expandedVideo = useRef<HTMLVideoElement>(null);
-  const expandedAt = useRef(0);
-
-  useEffect(() => {
-    let cancelled = false;
-    const active = expanded ? expandedVideo.current : inlineVideo.current;
-    if (expanded) inlineVideo.current?.pause();
-    if (paused) active?.pause();
-    else if (active) void active.play().catch(() => { if (!cancelled) setPaused(true); });
-    return () => { cancelled = true; };
-  }, [expanded, paused]);
-
-  const playbackControl = {
-    "aria-label": `${label}: ${paused ? copy.playGuideVideo : copy.pauseGuideVideo}`,
-    role: "button",
-    tabIndex: 0,
-    onClick: () => setPaused(value => !value),
-    onKeyDown: (event: ReactKeyboardEvent<HTMLVideoElement>) => {
-      if (event.repeat || (event.key !== " " && event.key !== "Enter")) return;
-      event.preventDefault();
-      setPaused(value => !value);
-    },
-  };
-
-  const closeExpanded = () => {
-    const currentTime = expandedVideo.current?.currentTime;
-    if (inlineVideo.current && Number.isFinite(currentTime)) {
-      inlineVideo.current.currentTime = currentTime ?? 0;
-    }
-    setExpanded(false);
-  };
-
-  useEffect(() => {
-    if (!expanded) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeExpanded();
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [expanded]);
-
-  return (
-    <>
-      <div className="guide-media">
-        <video {...playbackControl} autoPlay={!paused && !expanded} loop muted playsInline ref={inlineVideo} src={src} />
-        <span aria-hidden="true" className={`guide-media-pause${paused ? " is-visible" : ""}`}>
-          <Icon name="pause" />
-        </span>
-        <button
-          aria-label={copy.expandGuideVideo}
-          className="guide-media-expand"
-          onClick={() => {
-            expandedAt.current = inlineVideo.current?.currentTime ?? 0;
-            setExpanded(true);
-          }}
-          type="button"
-        >
-          <Icon name="expand" />
-        </button>
-      </div>
-      {expanded ? createPortal(
-        <div
-          aria-label={label}
-          aria-modal="true"
-          className="guide-media is-expanded"
-          role="dialog"
-        >
-          <video
-            {...playbackControl}
-            autoPlay={!paused}
-            loop
-            muted
-            onLoadedMetadata={(event) => {
-              event.currentTarget.currentTime = expandedAt.current;
-            }}
-            playsInline
-            ref={expandedVideo}
-            src={src}
-          />
-          <span aria-hidden="true" className={`guide-media-pause${paused ? " is-visible" : ""}`}>
-            <Icon name="pause" />
-          </span>
-          <button
-            aria-label={copy.closeGuideVideo}
-            autoFocus
-            className="guide-media-close"
-            onClick={closeExpanded}
-            type="button"
-          >
-            <Icon name="close" />
-          </button>
-        </div>,
-        document.body,
-      ) : null}
-    </>
-  );
-}
-
 function SectionHeading({ label, meta, spaced = false }: { label: string; meta?: string; spaced?: boolean }) {
   return (
     <div className={`section-heading${spaced ? " is-spaced" : ""}`}>
@@ -2578,7 +2509,7 @@ function Switch({
       role="switch"
       type="button"
     >
-      <span />
+      <span aria-hidden="true">{checked ? "[x]" : "[ ]"}</span>
     </button>
   );
 }
@@ -2662,12 +2593,10 @@ function BrandMark({ small = false }: { small?: boolean }) {
 
 function ErrorToast({ copy, message, onDismiss }: { copy: Copy; message: string; onDismiss: () => void }) {
   return (
-    <motion.div
-      animate={{ opacity: 1, y: 0 }}
+    <div
+
       className="error-toast"
-      exit={{ opacity: 0, y: 8 }}
-      initial={{ opacity: 0, y: 8 }}
-      transition={PANEL_TRANSITION}
+
     >
       <StateDot state="error" />
       <span>
@@ -2675,7 +2604,7 @@ function ErrorToast({ copy, message, onDismiss }: { copy: Copy; message: string;
         <p>{message}</p>
       </span>
       <button onClick={onDismiss} type="button">{copy.dismiss}</button>
-    </motion.div>
+    </div>
   );
 }
 
@@ -2691,13 +2620,11 @@ function SessionRefreshReminder({
   onLogout: () => void;
 }) {
   return (
-    <motion.aside
-      animate={{ opacity: 1, y: 0 }}
+    <aside
+
       aria-live="polite"
       className="session-refresh-reminder"
-      exit={{ opacity: 0, y: -8 }}
-      initial={{ opacity: 0, y: -8 }}
-      transition={PANEL_TRANSITION}
+
     >
       <span className="session-refresh-reminder-icon"><Icon name="alert" /></span>
       <div className="session-refresh-reminder-copy">
@@ -2712,7 +2639,7 @@ function SessionRefreshReminder({
           {copy.logOut}
         </button>
       </div>
-    </motion.aside>
+    </aside>
   );
 }
 
@@ -2730,23 +2657,20 @@ function BiggerContextRecommendation({
   onClose: () => void;
 }) {
   return (
-    <motion.div
-      animate={{ opacity: 1 }}
+    <div
+
       aria-describedby="bigger-context-recommendation-body"
       aria-labelledby="bigger-context-recommendation-title"
       aria-modal="true"
       className="bigger-context-recommendation-backdrop"
-      exit={{ opacity: 0 }}
-      initial={{ opacity: 0 }}
+
       role="dialog"
-      transition={{ duration: 0.18 }}
+
     >
-      <motion.section
-        animate={{ opacity: 1, scale: 1, y: 0 }}
+      <section
+
         className="bigger-context-recommendation"
-        exit={{ opacity: 0, scale: 0.98, y: 6 }}
-        initial={{ opacity: 0, scale: 0.98, y: 8 }}
-        transition={PANEL_TRANSITION}
+
       >
         <header className="bigger-context-recommendation-header">
           <small>{copy.biggerContext}</small>
@@ -2764,8 +2688,8 @@ function BiggerContextRecommendation({
         <footer>
           <SecondaryButton disabled={busy} onClick={onClose}>{copy.close}</SecondaryButton>
         </footer>
-      </motion.section>
-    </motion.div>
+      </section>
+    </div>
   );
 }
 

@@ -27,7 +27,7 @@ test("window state drops off-screen positions and enforces minimum dimensions", 
   assert.deepEqual(normalizeWindowState({
     bounds: { x: 9000, y: 9000, width: 200, height: 100 },
   }, displays), {
-    bounds: { width: 720, height: 600 },
+    bounds: { width: 640, height: 520 },
     maximized: false,
     fullscreen: false,
   });

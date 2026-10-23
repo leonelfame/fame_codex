@@ -2,11 +2,11 @@ const fs = require("node:fs");
 const { writePrivateFileAtomic } = require("./atomic-file.cjs");
 
 const DEFAULT_WINDOW_STATE = Object.freeze({
-  bounds: { width: 1120, height: 720 },
+  bounds: { width: 880, height: 640 },
   maximized: false,
   fullscreen: false,
 });
-const MIN_WINDOW_BOUNDS = Object.freeze({ width: 720, height: 600 });
+const MIN_WINDOW_BOUNDS = Object.freeze({ width: 640, height: 520 });
 const MAX_WINDOW_DIMENSION = 16_384;
 
 function finiteNumber(value, fallback) {

@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T12:33:52.735293+00:00",
+  "title": "Design System: Fame Codex",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "tonalRamp": [
+          "oklch(15% 0.0167 256.84)",
+          "oklch(26% 0.0167 256.84)",
+          "oklch(37% 0.0167 256.84)",
+          "oklch(49% 0.0167 256.84)",
+          "oklch(60% 0.0167 256.84)",
+          "oklch(72% 0.0167 256.84)",
+          "oklch(83% 0.0167 256.84)",
+          "oklch(95% 0.0167 256.84)"
+        ]
+      },
+      "navigation": {
+        "role": "neutral",
+        "displayName": "Navigation",
+        "tonalRamp": [
+          "oklch(15% 0.0217 251.81)",
+          "oklch(26% 0.0217 251.81)",
+          "oklch(37% 0.0217 251.81)",
+          "oklch(49% 0.0217 251.81)",
+          "oklch(60% 0.0217 251.81)",
+          "oklch(72% 0.0217 251.81)",
+          "oklch(83% 0.0217 251.81)",
+          "oklch(95% 0.0217 251.81)"
+        ]
+      },
+      "elevated": {
+        "role": "neutral",
+        "displayName": "Elevated",
+        "tonalRamp": [
+          "oklch(15% 0.0310 254.79)",
+          "oklch(26% 0.0310 254.79)",
+          "oklch(37% 0.0310 254.79)",
+          "oklch(49% 0.0310 254.79)",
+          "oklch(60% 0.0310 254.79)",
+          "oklch(72% 0.0310 254.79)",
+          "oklch(83% 0.0310 254.79)",
+          "oklch(95% 0.0310 254.79)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Accent",
+        "tonalRamp": [
+          "oklch(15% 0.1094 258.00)",
+          "oklch(26% 0.1094 258.00)",
+          "oklch(37% 0.1094 258.00)",
+          "oklch(49% 0.1094 258.00)",
+          "oklch(60% 0.1094 258.00)",
+          "oklch(72% 0.1094 258.00)",
+          "oklch(83% 0.1094 258.00)",
+          "oklch(95% 0.1094 258.00)"
+        ]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Text Primary",
+        "tonalRamp": [
+          "oklch(15% 0.0197 252.89)",
+          "oklch(26% 0.0197 252.89)",
+          "oklch(37% 0.0197 252.89)",
+          "oklch(49% 0.0197 252.89)",
+          "oklch(60% 0.0197 252.89)",
+          "oklch(72% 0.0197 252.89)",
+          "oklch(83% 0.0197 252.89)",
+          "oklch(95% 0.0197 252.89)"
+        ]
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Text Secondary",
+        "tonalRamp": [
+          "oklch(15% 0.0306 252.99)",
+          "oklch(26% 0.0306 252.99)",
+          "oklch(37% 0.0306 252.99)",
+          "oklch(49% 0.0306 252.99)",
+          "oklch(60% 0.0306 252.99)",
+          "oklch(72% 0.0306 252.99)",
+          "oklch(83% 0.0306 252.99)",
+          "oklch(95% 0.0306 252.99)"
+        ]
+      },
+      "text-tertiary": {
+        "role": "neutral",
+        "displayName": "Text Tertiary",
+        "tonalRamp": [
+          "oklch(15% 0.0364 253.78)",
+          "oklch(26% 0.0364 253.78)",
+          "oklch(37% 0.0364 253.78)",
+          "oklch(49% 0.0364 253.78)",
+          "oklch(60% 0.0364 253.78)",
+          "oklch(72% 0.0364 253.78)",
+          "oklch(83% 0.0364 253.78)",
+          "oklch(95% 0.0364 253.78)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border",
+        "tonalRamp": [
+          "oklch(15% 0.0402 254.30)",
+          "oklch(26% 0.0402 254.30)",
+          "oklch(37% 0.0402 254.30)",
+          "oklch(49% 0.0402 254.30)",
+          "oklch(60% 0.0402 254.30)",
+          "oklch(72% 0.0402 254.30)",
+          "oklch(83% 0.0402 254.30)",
+          "oklch(95% 0.0402 254.30)"
+        ]
+      },
+      "border-light": {
+        "role": "neutral",
+        "displayName": "Border Light",
+        "tonalRamp": [
+          "oklch(15% 0.0341 253.98)",
+          "oklch(26% 0.0341 253.98)",
+          "oklch(37% 0.0341 253.98)",
+          "oklch(49% 0.0341 253.98)",
+          "oklch(60% 0.0341 253.98)",
+          "oklch(72% 0.0341 253.98)",
+          "oklch(83% 0.0341 253.98)",
+          "oklch(95% 0.0341 253.98)"
+        ]
+      },
+      "nav-selected": {
+        "role": "primary",
+        "displayName": "Nav Selected",
+        "tonalRamp": [
+          "oklch(15% 0.0587 257.65)",
+          "oklch(26% 0.0587 257.65)",
+          "oklch(37% 0.0587 257.65)",
+          "oklch(49% 0.0587 257.65)",
+          "oklch(60% 0.0587 257.65)",
+          "oklch(72% 0.0587 257.65)",
+          "oklch(83% 0.0587 257.65)",
+          "oklch(95% 0.0587 257.65)"
+        ]
+      },
+      "nav-selected-text": {
+        "role": "primary",
+        "displayName": "Nav Selected Text",
+        "tonalRamp": [
+          "oklch(15% 0.0531 258.04)",
+          "oklch(26% 0.0531 258.04)",
+          "oklch(37% 0.0531 258.04)",
+          "oklch(49% 0.0531 258.04)",
+          "oklch(60% 0.0531 258.04)",
+          "oklch(72% 0.0531 258.04)",
+          "oklch(83% 0.0531 258.04)",
+          "oklch(95% 0.0531 258.04)"
+        ]
+      },
+      "nav-selected-border": {
+        "role": "primary",
+        "displayName": "Nav Selected Border",
+        "tonalRamp": [
+          "oklch(15% 0.0900 256.42)",
+          "oklch(26% 0.0900 256.42)",
+          "oklch(37% 0.0900 256.42)",
+          "oklch(49% 0.0900 256.42)",
+          "oklch(60% 0.0900 256.42)",
+          "oklch(72% 0.0900 256.42)",
+          "oklch(83% 0.0900 256.42)",
+          "oklch(95% 0.0900 256.42)"
+        ]
+      },
+      "nav-hover": {
+        "role": "neutral",
+        "displayName": "Nav Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0466 256.59)",
+          "oklch(26% 0.0466 256.59)",
+          "oklch(37% 0.0466 256.59)",
+          "oklch(49% 0.0466 256.59)",
+          "oklch(60% 0.0466 256.59)",
+          "oklch(72% 0.0466 256.59)",
+          "oklch(83% 0.0466 256.59)",
+          "oklch(95% 0.0466 256.59)"
+        ]
+      },
+      "nav-hover-text": {
+        "role": "neutral",
+        "displayName": "Nav Hover Text",
+        "tonalRamp": [
+          "oklch(15% 0.0400 258.81)",
+          "oklch(26% 0.0400 258.81)",
+          "oklch(37% 0.0400 258.81)",
+          "oklch(49% 0.0400 258.81)",
+          "oklch(60% 0.0400 258.81)",
+          "oklch(72% 0.0400 258.81)",
+          "oklch(83% 0.0400 258.81)",
+          "oklch(95% 0.0400 258.81)"
+        ]
+      },
+      "button-primary": {
+        "role": "primary",
+        "displayName": "Button Primary",
+        "tonalRamp": [
+          "oklch(15% 0.1002 258.80)",
+          "oklch(26% 0.1002 258.80)",
+          "oklch(37% 0.1002 258.80)",
+          "oklch(49% 0.1002 258.80)",
+          "oklch(60% 0.1002 258.80)",
+          "oklch(72% 0.1002 258.80)",
+          "oklch(83% 0.1002 258.80)",
+          "oklch(95% 0.1002 258.80)"
+        ]
+      },
+      "button-primary-text": {
+        "role": "primary",
+        "displayName": "Button Primary Text",
+        "tonalRamp": [
+          "oklch(15% 0.0358 259.46)",
+          "oklch(26% 0.0358 259.46)",
+          "oklch(37% 0.0358 259.46)",
+          "oklch(49% 0.0358 259.46)",
+          "oklch(60% 0.0358 259.46)",
+          "oklch(72% 0.0358 259.46)",
+          "oklch(83% 0.0358 259.46)",
+          "oklch(95% 0.0358 259.46)"
+        ]
+      },
+      "button-primary-border": {
+        "role": "primary",
+        "displayName": "Button Primary Border",
+        "tonalRamp": [
+          "oklch(15% 0.1024 256.54)",
+          "oklch(26% 0.1024 256.54)",
+          "oklch(37% 0.1024 256.54)",
+          "oklch(49% 0.1024 256.54)",
+          "oklch(60% 0.1024 256.54)",
+          "oklch(72% 0.1024 256.54)",
+          "oklch(83% 0.1024 256.54)",
+          "oklch(95% 0.1024 256.54)"
+        ]
+      },
+      "button-primary-hover": {
+        "role": "primary",
+        "displayName": "Button Primary Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0595 255.47)",
+          "oklch(26% 0.0595 255.47)",
+          "oklch(37% 0.0595 255.47)",
+          "oklch(49% 0.0595 255.47)",
+          "oklch(60% 0.0595 255.47)",
+          "oklch(72% 0.0595 255.47)",
+          "oklch(83% 0.0595 255.47)",
+          "oklch(95% 0.0595 255.47)"
+        ]
+      },
+      "button-secondary-hover": {
+        "role": "neutral",
+        "displayName": "Button Secondary Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0473 255.41)",
+          "oklch(26% 0.0473 255.41)",
+          "oklch(37% 0.0473 255.41)",
+          "oklch(49% 0.0473 255.41)",
+          "oklch(60% 0.0473 255.41)",
+          "oklch(72% 0.0473 255.41)",
+          "oklch(83% 0.0473 255.41)",
+          "oklch(95% 0.0473 255.41)"
+        ]
+      },
+      "button-secondary-hover-border": {
+        "role": "neutral",
+        "displayName": "Button Secondary Hover Border",
+        "tonalRamp": [
+          "oklch(15% 0.0875 255.81)",
+          "oklch(26% 0.0875 255.81)",
+          "oklch(37% 0.0875 255.81)",
+          "oklch(49% 0.0875 255.81)",
+          "oklch(60% 0.0875 255.81)",
+          "oklch(72% 0.0875 255.81)",
+          "oklch(83% 0.0875 255.81)",
+          "oklch(95% 0.0875 255.81)"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field",
+        "tonalRamp": [
+          "oklch(15% 0.0199 254.69)",
+          "oklch(26% 0.0199 254.69)",
+          "oklch(37% 0.0199 254.69)",
+          "oklch(49% 0.0199 254.69)",
+          "oklch(60% 0.0199 254.69)",
+          "oklch(72% 0.0199 254.69)",
+          "oklch(83% 0.0199 254.69)",
+          "oklch(95% 0.0199 254.69)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15% 0.0626 255.65)",
+          "oklch(26% 0.0626 255.65)",
+          "oklch(37% 0.0626 255.65)",
+          "oklch(49% 0.0626 255.65)",
+          "oklch(60% 0.0626 255.65)",
+          "oklch(72% 0.0626 255.65)",
+          "oklch(83% 0.0626 255.65)",
+          "oklch(95% 0.0626 255.65)"
+        ]
+      },
+      "mode-selected": {
+        "role": "neutral",
+        "displayName": "Mode Selected",
+        "tonalRamp": [
+          "oklch(15% 0.0471 256.62)",
+          "oklch(26% 0.0471 256.62)",
+          "oklch(37% 0.0471 256.62)",
+          "oklch(49% 0.0471 256.62)",
+          "oklch(60% 0.0471 256.62)",
+          "oklch(72% 0.0471 256.62)",
+          "oklch(83% 0.0471 256.62)",
+          "oklch(95% 0.0471 256.62)"
+        ]
+      },
+      "notice": {
+        "role": "neutral",
+        "displayName": "Notice",
+        "tonalRamp": [
+          "oklch(15% 0.0332 254.42)",
+          "oklch(26% 0.0332 254.42)",
+          "oklch(37% 0.0332 254.42)",
+          "oklch(49% 0.0332 254.42)",
+          "oklch(60% 0.0332 254.42)",
+          "oklch(72% 0.0332 254.42)",
+          "oklch(83% 0.0332 254.42)",
+          "oklch(95% 0.0332 254.42)"
+        ]
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Success",
+        "tonalRamp": [
+          "oklch(15% 0.1664 152.90)",
+          "oklch(26% 0.1664 152.90)",
+          "oklch(37% 0.1664 152.90)",
+          "oklch(49% 0.1664 152.90)",
+          "oklch(60% 0.1664 152.90)",
+          "oklch(72% 0.1664 152.90)",
+          "oklch(83% 0.1664 152.90)",
+          "oklch(95% 0.1664 152.90)"
+        ]
+      },
+      "warning": {
+        "role": "semantic",
+        "displayName": "Warning",
+        "tonalRamp": [
+          "oklch(15% 0.1658 45.11)",
+          "oklch(26% 0.1658 45.11)",
+          "oklch(37% 0.1658 45.11)",
+          "oklch(49% 0.1658 45.11)",
+          "oklch(60% 0.1658 45.11)",
+          "oklch(72% 0.1658 45.11)",
+          "oklch(83% 0.1658 45.11)",
+          "oklch(95% 0.1658 45.11)"
+        ]
+      },
+      "error": {
+        "role": "semantic",
+        "displayName": "Error",
+        "tonalRamp": [
+          "oklch(15% 0.1864 24.23)",
+          "oklch(26% 0.1864 24.23)",
+          "oklch(37% 0.1864 24.23)",
+          "oklch(49% 0.1864 24.23)",
+          "oklch(60% 0.1864 24.23)",
+          "oklch(72% 0.1864 24.23)",
+          "oklch(83% 0.1864 24.23)",
+          "oklch(95% 0.1864 24.23)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "title": {
+        "displayName": "Title",
+        "purpose": "Surface headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "General UI text."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Navigation and actions."
+      },
+      "setting-label": {
+        "displayName": "Setting Label",
+        "purpose": "Settings labels."
+      },
+      "supporting": {
+        "displayName": "Supporting",
+        "purpose": "Explanatory copy."
+      },
+      "status": {
+        "displayName": "Status",
+        "purpose": "Compact real-state footer."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "micro",
+        "value": "0ms",
+        "purpose": "Immediate control feedback."
+      },
+      {
+        "name": "panel",
+        "value": "0ms",
+        "purpose": "Immediate pane and tray changes."
+      },
+      {
+        "name": "inherited-primary-press",
+        "value": "100ms ease",
+        "purpose": "Retained half-pixel press transform; not a decorative-motion rule."
+      },
+      {
+        "name": "browser-loading",
+        "value": "0.8s linear infinite",
+        "purpose": "Functional loading spinner."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "navigation-tray",
+        "value": "680px"
+      },
+      {
+        "name": "small-row-stack",
+        "value": "460px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "html": "<button class=\"ds-primary\">Connect</button>",
+      "css": ".ds-primary{font-family:var(--font-ui,\"Cascadia Mono\",Consolas,monospace);font-size:12px;line-height:1.5;border-radius:0;min-height:30px;padding:0 14px;border:1px solid #83b0ee;background:#97c0ff;color:#0b1525;font-weight:500;transition:transform 100ms ease}.ds-primary:hover{background:#bedaff;opacity:.92}.ds-primary:active{transform:translateY(.5px)}.ds-primary:disabled{opacity:.38}.ds-primary:focus-visible{outline:1px solid var(--color-border-focus,#8dbbff);outline-offset:2px;box-shadow:none}",
+      "description": "Filled blue action with a square frame."
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "html": "<button class=\"ds-secondary\">Check status</button>",
+      "css": ".ds-secondary{font-family:var(--font-ui,\"Cascadia Mono\",Consolas,monospace);font-size:12px;line-height:1.5;border-radius:0;min-height:30px;padding:0 11px;border:1px solid var(--color-border,#334357);background:transparent;color:var(--color-text-primary,#d2dce8);font-weight:500}.ds-secondary:hover{border-color:#80a7db;background:#15263c}.ds-secondary:disabled{opacity:.38}.ds-secondary:focus-visible{outline:1px solid var(--color-border-focus,#8dbbff);outline-offset:2px;box-shadow:none}",
+      "description": "Transparent framed supporting action."
+    },
+    {
+      "name": "Technical field",
+      "kind": "input",
+      "refersTo": "input",
+      "html": "<input class=\"ds-input\" aria-label=\"Connector name\" value=\"fame_codex\" />",
+      "css": ".ds-input{font-family:var(--font-ui,\"Cascadia Mono\",Consolas,monospace);font-size:12px;line-height:1.5;border-radius:0;height:30px;padding:0 10px;border:1px solid #3c5576;background:#070d15;color:var(--color-text-primary,#d2dce8);caret-color:var(--color-text-accent,#8dbbff)}.ds-input:focus-visible{outline:1px solid var(--color-border-focus,#8dbbff);outline-offset:2px;box-shadow:none}",
+      "description": "Compact monospace configuration field."
+    },
+    {
+      "name": "Numbered navigation",
+      "kind": "nav",
+      "refersTo": "nav-selected",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Task surfaces\"><button aria-current=\"page\" aria-keyshortcuts=\"Alt+1\">[1] Browser</button><button aria-keyshortcuts=\"Alt+6\">[6] Settings</button></nav>",
+      "css": ".ds-nav{display:flex;flex-wrap:wrap;gap:2px;padding:6px 10px;background:var(--color-background-sidebar,#101821);border-bottom:1px solid var(--color-border,#334357)}.ds-nav button{font-family:var(--font-ui,\"Cascadia Mono\",Consolas,monospace);font-size:12px;line-height:1.5;border-radius:0;height:30px;padding:0 9px;border:1px solid transparent;background:transparent;color:var(--color-text-secondary,#a9b8ca)}.ds-nav button[aria-current]{border-color:#6288bc;background:#1c304d;color:#c6ddff}.ds-nav button:hover{background:#17273d;color:#d4e5ff}.ds-nav button:focus-visible{outline:1px solid var(--color-border-focus,#8dbbff);outline-offset:2px;box-shadow:none}",
+      "description": "Horizontal text navigation; shortcut handlers belong to the application, not this static preview."
+    },
+    {
+      "name": "Interaction mode",
+      "kind": "card",
+      "refersTo": "mode-card",
+      "html": "<button class=\"ds-mode\" role=\"radio\" aria-checked=\"true\"><strong>Automatic</strong><small>Selected interaction mode</small></button>",
+      "css": ".ds-mode{font-family:var(--font-ui,\"Cascadia Mono\",Consolas,monospace);font-size:12px;line-height:1.5;border-radius:0;display:grid;gap:6px;padding:12px;border:1px solid var(--color-border,#334357);background:#14243a;color:var(--color-text-primary,#d2dce8);text-align:left}.ds-mode strong{font-size:13px;font-weight:500}.ds-mode small{font-size:12px;line-height:1.6;color:var(--color-text-secondary,#a9b8ca)}.ds-mode:hover{background:var(--color-background-control,rgb(255 255 255 / 3%))}.ds-mode:focus-visible{outline:1px solid var(--color-border-focus,#8dbbff);outline-offset:2px;box-shadow:none}",
+      "description": "Square radio choice in a shared divided frame."
+    },
+    {
+      "name": "Text switch",
+      "kind": "custom",
+      "refersTo": "switch-on",
+      "html": "<button class=\"ds-switch\" role=\"switch\" aria-checked=\"true\" aria-label=\"Enable runtime\"><span aria-hidden=\"true\">[x]</span></button>",
+      "css": ".ds-switch{font-family:var(--font-ui,\"Cascadia Mono\",Consolas,monospace);font-size:12px;line-height:1.5;border-radius:0;display:grid;place-items:center;width:42px;height:30px;padding:0;border:1px solid transparent;background:transparent;color:var(--color-text-accent,#8dbbff)}.ds-switch span{font-size:15px}.ds-switch:hover{border-color:var(--color-border,#334357)}.ds-switch:disabled{opacity:.42}.ds-switch:focus-visible{outline:1px solid var(--color-border-focus,#8dbbff);outline-offset:2px;box-shadow:none}",
+      "description": "Textual enabled switch with no sliding thumb."
+    },
+    {
+      "name": "DEV badge",
+      "kind": "chip",
+      "refersTo": "dev-badge",
+      "html": "<span class=\"ds-dev\">DEV</span>",
+      "css": ".ds-dev{font-family:var(--font-ui,\"Cascadia Mono\",Consolas,monospace);font-size:12px;line-height:1.5;border-radius:0;display:inline-flex;align-items:center;height:18px;padding:0 6px;border:1px solid var(--color-border-focus,#8dbbff);background:transparent;color:var(--color-text-accent,#8dbbff);font-size:9px;font-weight:700;line-height:1}",
+      "description": "Square profile identity marker."
+    },
+    {
+      "name": "Runtime status footer",
+      "kind": "custom",
+      "refersTo": "statusbar",
+      "html": "<footer class=\"ds-status\"><span>DEV / settings</span><span class=\"ds-runtime\">idle</span><span>Alt+1?6</span><span>v?</span></footer>",
+      "css": ".ds-status{font-family:var(--font-ui,\"Cascadia Mono\",Consolas,monospace);font-size:12px;line-height:1.5;border-radius:0;display:flex;align-items:center;gap:16px;height:26px;padding:0 12px;border-top:1px solid var(--color-border,#334357);background:var(--color-background-sidebar,#101821);color:var(--color-text-tertiary,#8e9fb4);font-size:11px;font-variant-numeric:tabular-nums}.ds-status>span:first-child{color:var(--color-text-accent,#8dbbff)}.ds-runtime{margin-right:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      "description": "Representative footer layout; shipped values come from profile, surface, browser state, and snapshot version."
+    }
+  ],
+  "narrative": {
+    "northStar": "Terminal/TUI",
+    "overview": "The user-requested Terminal/TUI replacement, with their latest blue color preference, uses installed monospace fonts, near-black blue-tinted surfaces, pale blue accents, square controls, and thin frames. Numbered horizontal navigation leads to a full-width work pane; a compact footer reports actual profile, surface, browser state, and version.\n\nKeep the Fame Codex name and existing logo, with DEV visibly distinct. The interface is media-free and uses no remote fonts, glow, blur, or decorative texture. Smaller windows and reduced RAM/CPU overhead are confirmed priorities; no end-to-end resource reduction is claimed without measurement.",
+    "keyCharacteristics": [
+      "Numbered text navigation and real Alt+1?6 shortcuts.",
+      "Full-width framed pane with a real status footer.",
+      "Square controls, text switches, and installed monospace fonts."
+    ],
+    "rules": [
+      {
+        "name": "The Real State Rule",
+        "body": "Display runtime and profile values from application state; do not invent telemetry or pretend commands.",
+        "section": "colors"
+      },
+      {
+        "name": "The Thin Frame Rule",
+        "body": "Use square corners, tonal surfaces, and thin borders to separate controls and panes; do not add glow or decorative blur.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do retain the existing logo and clearly identify DEV.",
+      "Do use the installed monospace stack throughout the terminal shell.",
+      "Do preserve visible keyboard focus and semantic switch, radio, and navigation states.",
+      "Do keep the framed pane usable in the minimum desktop window."
+    ],
+    "donts": [
+      "Don't restore the persistent left-sidebar composition.",
+      "Don't add remote fonts, tutorial media, decorative texture, glow, or blur.",
+      "Don't fabricate status data or display nonfunctional command prompts.",
+      "Don't report RAM/CPU savings from layout or bundle size alone."
+    ]
+  }
+}

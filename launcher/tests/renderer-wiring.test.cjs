@@ -721,7 +721,7 @@ test("approval notices are visible outside Browser and open the exact waiting ta
     useRef: value => ({ current: value }), useEffect() {}, useLayoutEffect() {}, useCallback: callback => callback,
     window: { matchMedia: () => ({ matches: false }) }, COMPACT_SIDEBAR_QUERY: "fixture",
     useLimits: () => ({}), limitsCopyFor: () => ({}), browserTabTitleFromTitle: title => title,
-    motion: { main: "main", aside: "aside", div: "div" },
+    React: { Fragment: "Fragment" },
     messageOf: String,
     api: {
       selectBrowserTab: async id => { calls.push(["select", id]); },
@@ -847,7 +847,9 @@ test("catalog recovery clears its error banner but preserves a newer unrelated f
   const vm = require("node:vm");
   const source = appSource.slice(appSource.indexOf("const unsubscribeOperation = api.onOperation"), appSource.indexOf("const unsubscribeLog ="));
   let callback, error = null;
-  vm.runInNewContext(source, {
+  vm.runInNewContext(require("typescript").transpileModule(source, { compilerOptions: {
+    target: require("typescript").ScriptTarget.ES2022,
+  } }).outputText, {
     api: { onOperation: fn => { callback = fn; } },
     setOperation() {}, catalogError: { current: null },
     setError: value => { error = typeof value === "function" ? value(error) : value; },

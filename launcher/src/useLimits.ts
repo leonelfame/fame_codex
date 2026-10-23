@@ -6,7 +6,7 @@ export function limitNeedsAttention(window: LimitsWindow): boolean {
 }
 
 // One reader keeps the page and sidebar in sync, including while Limits is closed.
-export function useLimits(api: LimitsApi, manualMode: boolean) {
+export function useLimits(api: LimitsApi, manualMode: boolean, active = false) {
   const [snapshot, setSnapshot] = useState<LimitsSnapshot | null>(null);
   const [reading, setReading] = useState(true);
   const [settingUp, setSettingUp] = useState(false);
@@ -28,9 +28,13 @@ export function useLimits(api: LimitsApi, manualMode: boolean) {
 
   useEffect(() => {
     let cancelled = false;
+    let inFlight = false;
     let timer: ReturnType<typeof setTimeout>;
     const read = async () => {
-      if (cancelled) return;
+      if (cancelled || inFlight) return;
+      clearTimeout(timer);
+      if (document.hidden) return;
+      inFlight = true;
       if (!setupInFlight.current) {
         const version = requestVersion.current;
         setReading(true);
@@ -46,14 +50,21 @@ export function useLimits(api: LimitsApi, manualMode: boolean) {
           if (!cancelled) setReading(false);
         }
       }
-      if (!cancelled) timer = setTimeout(() => void read(), 10_000);
+      inFlight = false;
+      if (!cancelled && !document.hidden && !manualMode) timer = setTimeout(() => void read(), active ? 10_000 : 60_000);
     };
+    const onVisibilityChange = () => {
+      if (document.hidden) clearTimeout(timer);
+      else void read();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
     void read();
     return () => {
       cancelled = true;
       clearTimeout(timer);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [api, manualMode, refreshVersion]);
+  }, [api, manualMode, active, refreshVersion]);
 
   const setup = async () => {
     if (manualMode || !snapshot || setupInFlight.current) return null;

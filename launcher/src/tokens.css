@@ -1,9 +1,10 @@
 :root {
   color-scheme: dark;
 
-  --blue-100: #99ceff;
-  --blue-300: #339cff;
-  --blue-900: #00284d;
+  --blue-100: #8dbbff;
+  --blue-200: #8dbbff;
+  --blue-300: #79a9ed;
+  --blue-900: #1c304d;
   --gray-0: #ffffff;
   --gray-100: #ededed;
   --gray-300: #afafaf;
@@ -20,9 +21,9 @@
   --red-400: #fa423e;
 
   --color-background-surface-under: #000000;
-  --color-background-surface: var(--gray-900);
-  --color-background-sidebar: var(--gray-800);
-  --color-background-elevated: var(--gray-750);
+  --color-background-surface: #0b1017;
+  --color-background-sidebar: #101821;
+  --color-background-elevated: #172230;
   --color-background-control: rgb(255 255 255 / 3%);
   --color-background-control-hover: rgb(255 255 255 / 7%);
   --color-background-control-active: rgb(255 255 255 / 10%);
@@ -32,9 +33,9 @@
   --color-background-status-warning: rgb(255 133 73 / 12%);
   --color-background-status-error: rgb(250 66 62 / 13%);
 
-  --color-text-primary: var(--gray-0);
-  --color-text-secondary: rgb(255 255 255 / 70%);
-  --color-text-tertiary: rgb(255 255 255 / 50%);
+  --color-text-primary: #d2dce8;
+  --color-text-secondary: #a9b8ca;
+  --color-text-tertiary: #8e9fb4;
   --color-text-disabled: rgb(255 255 255 / 32%);
   --color-text-accent: var(--blue-100);
   --color-text-success: var(--green-300);
@@ -44,34 +45,34 @@
   --color-icon-primary: rgb(255 255 255 / 90%);
   --color-icon-secondary: rgb(255 255 255 / 70%);
   --color-icon-tertiary: rgb(255 255 255 / 50%);
-  --color-border: rgb(255 255 255 / 8%);
-  --color-border-light: rgb(255 255 255 / 4%);
+  --color-border: #334357;
+  --color-border-light: #222f3f;
   --color-border-heavy: rgb(255 255 255 / 16%);
-  --color-border-focus: rgb(51 156 255 / 70%);
+  --color-border-focus: #8dbbff;
 
-  --font-ui: "OpenAI Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Hiragino Sans", "Yu Gothic UI", "Meiryo", "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, monospace;
+  --font-ui: "Cascadia Mono", "Consolas", "SFMono-Regular", "Menlo", "Meiryo", monospace;
+  --font-mono: var(--font-ui);
   --text-xs: 11px;
   --text-sm: 12px;
-  --text-base: 14px;
-  --text-lg: 16px;
-  --text-title: 24px;
+  --text-base: 13px;
+  --text-lg: 14px;
+  --text-title: 17px;
 
-  --height-titlebar: 46px;
-  --height-row: 30px;
+  --height-titlebar: 40px;
+  --height-row: 32px;
   --height-control: 32px;
-  --sidebar-width: 252px;
-  --content-width: 720px;
-  --settings-width: 672px;
+  --sidebar-width: 164px;
+  --content-width: 760px;
+  --settings-width: 680px;
 
-  --radius-xs: 4px;
-  --radius-sm: 7px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-round: 999px;
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-round: 0px;
 
   --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
-  --duration-micro: 140ms;
-  --duration-panel: 300ms;
+  --duration-micro: 0ms;
+  --duration-panel: 0ms;
 }

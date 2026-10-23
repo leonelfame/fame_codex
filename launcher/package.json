@@ -1,6 +1,6 @@
 {
   "name": "fame-codex-launcher",
-  "version": "6.1.13",
+  "version": "6.1.14-beta.1",
   "private": true,
   "description": "Desktop control center for Fame Codex",
   "author": "leonelfame",
@@ -22,7 +22,6 @@
     "start": "electron ."
   },
   "dependencies": {
-    "motion": "^12.42.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

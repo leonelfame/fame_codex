@@ -1,7 +1,7 @@
 import { createInterface } from "node:readline/promises";
 import { existsSync } from "node:fs";
 import { stdin, stdout } from "node:process";
-import { DEV_CHATGPT_CONNECTOR_NAME, loadConfig } from "../config";
+import { isLegacyChatGptConnectorName, loadConfig } from "../config";
 import {
   inspectLauncherBrowserHost,
   inspectLauncherBrowserHostLiveness,
@@ -410,7 +410,7 @@ export async function runDevCommand(args: string[]): Promise<void> {
     );
   }
   const config = loadConfig();
-  if (config.mode === "full" && config.appName !== DEV_CHATGPT_CONNECTOR_NAME) {
+  if (config.mode === "full" && isLegacyChatGptConnectorName(config.appName)) {
     throw new Error("DEV connector identity is outdated. Refresh the DEV profile in the launcher before starting a named chat");
   }
   const runtimeStateRoot = paths.runtimePath;
