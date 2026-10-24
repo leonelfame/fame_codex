@@ -11,6 +11,7 @@ import {
 import { copyFor, localizeRuntimeMessage, type Copy } from "./i18n";
 import { Icon, type IconName } from "./icons";
 import { LimitsSurface } from "./LimitsSurface";
+import { UpdatesSettings } from "./UpdatesSettings";
 import { limitsCopyFor } from "./limits-copy";
 import { useLimits } from "./useLimits";
 import { describeTurnActivity } from "./turn-activity";
@@ -1884,7 +1885,8 @@ function SettingsSurface({
 
   return (
     <ContentSurface narrow title={devProfile ? copy.devSettingsTitle : copy.settingsTitle}>
-      <SectionHeading label={copy.general} />
+      <UpdatesSettings api={api!} includeBeta={snapshot.state.includePrereleaseUpdates} language={language} updateState={updateState} version={snapshot.version} />
+      <SectionHeading label={copy.general} spaced />
       <div className="settings-list">
         {!devProfile ? <SettingRow body={copy.launchAtLoginBody} flushAfter label={copy.launchAtLogin}>
           <Switch

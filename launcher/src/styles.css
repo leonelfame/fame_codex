@@ -1857,6 +1857,42 @@ code {
   padding: 0;
 }
 
+.updates-channel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.updates-settings h2 {
+  margin: 0;
+  font: inherit;
+}
+
+.updates-channel input {
+  accent-color: var(--color-text-primary);
+}
+
+.updates-result p,
+.updates-hint {
+  margin: 10px 0;
+  overflow-wrap: anywhere;
+}
+
+.updates-hint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 460px) {
+  .updates-settings .setting-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-bottom: 12px;
+  }
+}
+
 .setting-row {
   display: grid;
   min-height: 54px;

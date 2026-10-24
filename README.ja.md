@@ -1,23 +1,17 @@
+# Fame Codex
+
 <p align="center">
-  <img src="assets/readme/hero.svg" width="960" alt="Web モデルに切り替えても、Codex はそのまま。ChatGPT のプラン。いつものワークフロー。モデルの力を最大限に。">
+  <img src="assets/readme/hero.svg" width="960" alt="Fame Codex by Leonelfame. A blue terminal-style desktop bridge for ChatGPT, MCP, and Codex.">
 </p>
 
 <p align="center">
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.14-beta.3/fame-codex-6.1.14-beta.3-win-x64.exe"><img src="assets/readme/download-windows.svg" width="224" height="64" alt="Windows · x64"></a>&nbsp;
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.14-beta.3/fame-codex-6.1.14-beta.3-mac-arm64.dmg"><img src="assets/readme/download-macos.svg" width="224" height="64" alt="macOS · Apple silicon"></a>&nbsp;
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.14-beta.3/fame-codex-6.1.14-beta.3-linux-x64.AppImage"><img src="assets/readme/download-linux.svg" width="224" height="64" alt="Linux · x64"></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.14-beta.3/fame-codex-6.1.14-beta.3-mac-x64.dmg">macOS Intel</a> · <a href="https://github.com/leonelfame/fame_codex/releases/latest">すべてのリリース</a>
+  <a href="https://github.com/leonelfame/fame_codex/releases">Download Fame Codex</a> ·
+  <a href="https://github.com/leonelfame/fame_codex/issues">Report an issue</a> ·
+  <a href="https://github.com/leonelfame">Leonelfame</a>
 </p>
 
 <p align="center">
   <a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="README.ja.md">日本語</a> · <a href="README.ko.md">한국어</a>
-</p>
-
-<p align="center">
-  <img src="assets/demo.gif" width="960" alt="ネイティブ Codex ハーネスを使用する ChatGPT Web ターン">
 </p>
 
 <p align="center">
@@ -27,6 +21,10 @@
 アカウントで利用可能な Pro を含む ChatGPT Web モデルを、Codex のネイティブモデル選択画面から使えます。ChatGPT Web の独立した利用枠を使うため、Work や Codex の利用枠は消費しません。UI、タスク、画像、ストリーミングはそのままです。
 
 Full ハーネスモードでは、MCP を通じて ChatGPT を現在のタスクのファイル、ターミナル、ツール、承認に接続します。会話は Codex タスクに紐付いたままなので、コンテキストが増えても作業を続けられます。
+
+<p align="center">
+  <img src="assets/readme/launcher.png" width="640" alt="Fame Codex Terminal UI setup window">
+</p>
 
 <div id="get-started"><a id="quick-start"></a></div>
 
@@ -166,7 +164,7 @@ Full モードを有効にする前に、完全な[アーキテクチャ](docs/a
 
 ```bash
 git clone https://github.com/leonelfame/fame_codex.git && \
-cd codex-chatgpt-web && \
+cd fame_codex && \
 bun run app
 ```
 
@@ -186,15 +184,11 @@ bun run app:package
 
 </details>
 
-## Star の履歴
+## Maintainer
 
-<a href="https://www.star-history.com/?repos=leonelfame%2Ffame_codex&type=date&legend=top-left">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=leonelfame/fame_codex&type=date&theme=dark&legend=top-left&sealed_token=hBVvg_eOjfMFDrfyeo5FPQkIwcvBEmXc6F7ZoOKnfFE4KPCs67o34w4XwVuM-bHGnKR-SKCAN_TSTWrzuqSBNU-RjNZCLT4f-xNs9qcDhciQtemxHKuuFj0N5YNqZIihdaQfakrh2ANhOrvP0K2LmLXX2zbsYyVaYZknyTnlYeIS_mOGvMcO32ZmPCHK">
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=leonelfame/fame_codex&type=date&legend=top-left&sealed_token=hBVvg_eOjfMFDrfyeo5FPQkIwcvBEmXc6F7ZoOKnfFE4KPCs67o34w4XwVuM-bHGnKR-SKCAN_TSTWrzuqSBNU-RjNZCLT4f-xNs9qcDhciQtemxHKuuFj0N5YNqZIihdaQfakrh2ANhOrvP0K2LmLXX2zbsYyVaYZknyTnlYeIS_mOGvMcO32ZmPCHK">
-    <img alt="Star 履歴チャート" src="https://api.star-history.com/chart?repos=leonelfame/fame_codex&type=date&legend=top-left&sealed_token=hBVvg_eOjfMFDrfyeo5FPQkIwcvBEmXc6F7ZoOKnfFE4KPCs67o34w4XwVuM-bHGnKR-SKCAN_TSTWrzuqSBNU-RjNZCLT4f-xNs9qcDhciQtemxHKuuFj0N5YNqZIihdaQfakrh2ANhOrvP0K2LmLXX2zbsYyVaYZknyTnlYeIS_mOGvMcO32ZmPCHK">
-  </picture>
-</a>
+[Leonelfame](https://github.com/leonelfame) maintains and distributes Fame Codex at [leonelfame/fame_codex](https://github.com/leonelfame/fame_codex).
+
+See the [Fame Codex project notice](FAME_CODEX_NOTICE.md) and [license notices](LICENSES/).
 
 ---
 

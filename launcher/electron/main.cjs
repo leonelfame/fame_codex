@@ -36,7 +36,8 @@ const { ensurePackagedRuntime, waitForPackagedRuntimeSource } = require("./runti
 const { RuntimeSupervisor } = require("./runtime-supervisor.cjs");
 const { DEVELOPMENT_PROFILE, resolveLauncherProfile } = require("./profile.cjs");
 const { runtimeBundlePaths } = require("./runtime-command.cjs");
-const { createUpdateController } = require("./update.cjs");
+const { createUpdateController, createUpdateDownloader } = require("./update.cjs");
+const { checkForUpdates } = require("./release-check.cjs");
 const {
   createStateStore,
   nextSessionRefreshReminderAt,
@@ -1027,7 +1028,7 @@ function registerIpc({ logger, stateStore }) {
     return { state, credentialsRequired: false, targetMode: mode };
   });
   handle("launcher:set-preference", (_event, key, value) => {
-    const ordinary = key === "keepRunningOnClose" || key === "showBrowserDuringTurns";
+    const ordinary = key === "keepRunningOnClose" || key === "showBrowserDuringTurns" || key === "includePrereleaseUpdates";
     if (!ordinary) throw new Error("Unknown preference");
     return stateStore.update({ [key]: value === true });
   });
@@ -1048,6 +1049,28 @@ function registerIpc({ logger, stateStore }) {
     });
     logger.info("launcher.logs_exported", { recordCount });
     return result.filePath;
+  });
+  let releaseCheck = null;
+  let checkedRelease = null;
+  handle("launcher:update-check", () => {
+    if (!releaseCheck) {
+      checkedRelease = null;
+      const { downloadText } = createUpdateDownloader(options => require("electron").net.request(options), 15_000);
+      releaseCheck = checkForUpdates({
+        currentVersion: app.getVersion(),
+        includePrereleases: stateStore.read().includePrereleaseUpdates,
+        platform: process.platform,
+        arch: process.arch,
+        fetchJson: async url => JSON.parse(await downloadText(url)),
+      }).then(result => { checkedRelease = result; return result; })
+        .finally(() => { releaseCheck = null; });
+    }
+    return releaseCheck;
+  });
+  handle("launcher:update-open", async () => {
+    if (!checkedRelease) throw new Error("Check for updates before opening a release");
+    await openWebUrl(checkedRelease.downloadUrl ?? checkedRelease.releaseUrl);
+    return true;
   });
   handle("launcher:update-install", async () => {
     if (!updateController) throw new Error("Launcher updates are unavailable");

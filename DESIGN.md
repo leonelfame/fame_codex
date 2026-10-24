@@ -177,6 +177,7 @@ Every radius token is zero. Controls, input frames, mode choices, badges, tabs, 
 ### Do:
 
 - Do use the same F application icon in the launcher and installer, and clearly identify DEV.
+- Settings starts with Updates: installed version, a manual check, an opt-in Beta channel, the latest published version, and a browser download or release-page action. Checking never closes the bridge or installs an update. Keep the result inline and usable in compact windows.
 - Do use the installed monospace stack throughout the terminal shell.
 - Do preserve visible keyboard focus and semantic switch, radio, and navigation states.
 - Do keep the framed pane usable in the minimum desktop window.

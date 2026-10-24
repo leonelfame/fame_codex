@@ -10,7 +10,7 @@ flows are exercised manually on the platforms below.
 Use GitHub's **Set as a pre-release** flag for public test builds. They remain downloadable from
 Releases but are excluded from `/releases/latest`, the endpoint used by both existing launchers
 and the installer. A draft is private; a pre-release is the public testing option. No separate
-launcher update channel or custom release-body flag is required.
+automatic-update channel or custom release-body flag is required. Settings → Updates also offers a manual check with an opt-in Beta channel. That check can open a published installer or release page in the system browser without stopping the bridge.
 
 After validation, uncheck **Set as a pre-release** and select **Set as latest release**, or publish
 a newer stable release. Launchers discover it on their next startup update check, provided its

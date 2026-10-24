@@ -669,7 +669,7 @@ test("browser preference controls are translated, disabled in Zero Risk, and inv
     },
     messageOf: String, platformLabel: String,
   };
-  for (const name of ["ContentSurface", "SectionHeading", "SettingRow", "PrimaryButton", "SecondaryButton", "Switch", "InteractionModePicker", "LanguageMenu", "NoticeRow", "Icon", "DoctorSummary", "BrandMark"]) sandbox[name] = name;
+  for (const name of ["ContentSurface", "SectionHeading", "SettingRow", "PrimaryButton", "SecondaryButton", "Switch", "InteractionModePicker", "LanguageMenu", "NoticeRow", "Icon", "DoctorSummary", "UpdatesSettings", "BrandMark"]) sandbox[name] = name;
   vm.runInNewContext(transpile(settings, "settings.tsx") + "\nrender = SettingsSurface;", Object.assign(sandbox, { render }));
   render = sandbox.render;
   const visit = tree => Array.isArray(tree) ? tree.flatMap(visit) : tree && typeof tree === "object"
@@ -816,7 +816,7 @@ test("plugin name editor fixes Codex and edits Native2 before asking to reconfig
     useEffect() {}, messageOf: String, platformLabel: String,
     api: { setConnectorNameSuffix: async suffix => { submitted = suffix; return { mcpSetupComplete: false }; } },
   };
-  for (const name of ["ContentSurface", "SectionHeading", "SettingRow", "PrimaryButton", "SecondaryButton", "Switch", "InteractionModePicker", "LanguageMenu", "NoticeRow", "Icon", "DoctorSummary", "BrandMark"]) sandbox[name] = name;
+  for (const name of ["ContentSurface", "SectionHeading", "SettingRow", "PrimaryButton", "SecondaryButton", "Switch", "InteractionModePicker", "LanguageMenu", "NoticeRow", "Icon", "DoctorSummary", "UpdatesSettings", "BrandMark"]) sandbox[name] = name;
   const settings = appSource.slice(appSource.indexOf("function SettingsSurface("), appSource.indexOf("function ContentSurface("));
   vm.runInNewContext(transpile(settings, "settings.tsx") + "\nrender = SettingsSurface;", sandbox);
   const visit = tree => Array.isArray(tree) ? tree.flatMap(visit) : tree && typeof tree === "object"

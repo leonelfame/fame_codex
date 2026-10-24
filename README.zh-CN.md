@@ -1,23 +1,17 @@
+# Fame Codex
+
 <p align="center">
-  <img src="assets/readme/hero.svg" width="960" alt="切换到网页版模型，继续使用 Codex。你的 ChatGPT 订阅。你的工作流。充分发挥模型能力。">
+  <img src="assets/readme/hero.svg" width="960" alt="Fame Codex by Leonelfame. A blue terminal-style desktop bridge for ChatGPT, MCP, and Codex.">
 </p>
 
 <p align="center">
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.14-beta.3/fame-codex-6.1.14-beta.3-win-x64.exe"><img src="assets/readme/download-windows.svg" width="224" height="64" alt="Windows · x64"></a>&nbsp;
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.14-beta.3/fame-codex-6.1.14-beta.3-mac-arm64.dmg"><img src="assets/readme/download-macos.svg" width="224" height="64" alt="macOS · Apple silicon"></a>&nbsp;
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.14-beta.3/fame-codex-6.1.14-beta.3-linux-x64.AppImage"><img src="assets/readme/download-linux.svg" width="224" height="64" alt="Linux · x64"></a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/leonelfame/fame_codex/releases/download/v6.1.14-beta.3/fame-codex-6.1.14-beta.3-mac-x64.dmg">macOS Intel</a> · <a href="https://github.com/leonelfame/fame_codex/releases/latest">所有版本</a>
+  <a href="https://github.com/leonelfame/fame_codex/releases">Download Fame Codex</a> ·
+  <a href="https://github.com/leonelfame/fame_codex/issues">Report an issue</a> ·
+  <a href="https://github.com/leonelfame">Leonelfame</a>
 </p>
 
 <p align="center">
   <a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="README.ja.md">日本語</a> · <a href="README.ko.md">한국어</a>
-</p>
-
-<p align="center">
-  <img src="assets/demo.gif" width="960" alt="ChatGPT Web 实时轮次正在使用原生 Codex harness">
 </p>
 
 <p align="center">
@@ -27,6 +21,10 @@
 在 Codex 原生模型选择器中使用账户可用的 ChatGPT 网页版模型，包括 Pro。使用 ChatGPT 网页版的独立额度，不消耗 Work 或 Codex 额度。保留原有的界面、任务、图片和流式输出。
 
 完整 harness 模式通过 MCP 将 ChatGPT 连接到当前任务的文件、终端、工具和审批流程。对话始终关联到你的 Codex 任务，上下文增长时也能继续工作。
+
+<p align="center">
+  <img src="assets/readme/launcher.png" width="640" alt="Fame Codex Terminal UI setup window">
+</p>
 
 <div id="get-started"><a id="quick-start"></a></div>
 
@@ -163,7 +161,7 @@ codex-chatgpt-web subagents native
 
 ```bash
 git clone https://github.com/leonelfame/fame_codex.git && \
-cd codex-chatgpt-web && \
+cd fame_codex && \
 bun run app
 ```
 
@@ -183,15 +181,11 @@ bun run app:package
 
 </details>
 
-## Star History
+## Maintainer
 
-<a href="https://www.star-history.com/?repos=leonelfame%2Ffame_codex&type=date&legend=top-left">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=leonelfame/fame_codex&type=date&theme=dark&legend=top-left&sealed_token=hBVvg_eOjfMFDrfyeo5FPQkIwcvBEmXc6F7ZoOKnfFE4KPCs67o34w4XwVuM-bHGnKR-SKCAN_TSTWrzuqSBNU-RjNZCLT4f-xNs9qcDhciQtemxHKuuFj0N5YNqZIihdaQfakrh2ANhOrvP0K2LmLXX2zbsYyVaYZknyTnlYeIS_mOGvMcO32ZmPCHK">
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=leonelfame/fame_codex&type=date&legend=top-left&sealed_token=hBVvg_eOjfMFDrfyeo5FPQkIwcvBEmXc6F7ZoOKnfFE4KPCs67o34w4XwVuM-bHGnKR-SKCAN_TSTWrzuqSBNU-RjNZCLT4f-xNs9qcDhciQtemxHKuuFj0N5YNqZIihdaQfakrh2ANhOrvP0K2LmLXX2zbsYyVaYZknyTnlYeIS_mOGvMcO32ZmPCHK">
-    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=leonelfame/fame_codex&type=date&legend=top-left&sealed_token=hBVvg_eOjfMFDrfyeo5FPQkIwcvBEmXc6F7ZoOKnfFE4KPCs67o34w4XwVuM-bHGnKR-SKCAN_TSTWrzuqSBNU-RjNZCLT4f-xNs9qcDhciQtemxHKuuFj0N5YNqZIihdaQfakrh2ANhOrvP0K2LmLXX2zbsYyVaYZknyTnlYeIS_mOGvMcO32ZmPCHK">
-  </picture>
-</a>
+[Leonelfame](https://github.com/leonelfame) maintains and distributes Fame Codex at [leonelfame/fame_codex](https://github.com/leonelfame/fame_codex).
+
+See the [Fame Codex project notice](FAME_CODEX_NOTICE.md) and [license notices](LICENSES/).
 
 ---
 

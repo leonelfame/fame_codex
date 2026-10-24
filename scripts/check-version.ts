@@ -41,9 +41,8 @@ if (!mainReadme.includes("https://github.com/leonelfame/fame_codex/releases")) {
 }
 for (const path of ["README.zh-CN.md", "README.ja.md", "README.ko.md"]) {
   const readme = readFileSync(resolve(root, path), "utf8");
-  for (const target of ["win-x64.exe", "mac-arm64.dmg", "mac-x64.dmg", "linux-x64.AppImage"]) {
-    const download = `/releases/download/v${packageVersion}/fame-codex-${packageVersion}-${target}`;
-    if (!readme.includes(download)) throw new Error(`${path} download for ${target} is not synchronized to ${packageVersion}`);
+  if (!readme.includes("https://github.com/leonelfame/fame_codex/releases")) {
+    throw new Error(`${path} must link to published Fame Codex releases`);
   }
 }
 const releaseWorkflow = readFileSync(resolve(root, ".github/workflows/release.yml"), "utf8");

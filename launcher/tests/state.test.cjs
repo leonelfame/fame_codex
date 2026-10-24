@@ -10,6 +10,19 @@ const {
   validateSidebarState,
 } = require("../electron/state.cjs");
 
+test("Beta update preference defaults off, persists, and rejects corrupt saved values", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "fame-update-state-"));
+  const file = path.join(root, "state.json");
+  try {
+    const store = createStateStore(file);
+    assert.equal(store.read().includePrereleaseUpdates, false);
+    store.update({ includePrereleaseUpdates: true });
+    assert.equal(createStateStore(file).read().includePrereleaseUpdates, true);
+    fs.writeFileSync(file, JSON.stringify({ version: 1, includePrereleaseUpdates: "true" }));
+    assert.equal(createStateStore(file).read().includePrereleaseUpdates, false);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
 test("prediction setting starts on and remains off after reopening the state store", () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "codex-prediction-state-"));
   const file = path.join(root, "state.json");
@@ -46,6 +59,7 @@ test("launcher state persists onboarding, language, and autostart atomically", (
       githubOpened: false,
       autoStart: true,
       keepRunningOnClose: true,
+      includePrereleaseUpdates: false,
       showBrowserDuringTurns: true,
       autoApproveToolCalls: false,
       browserInteractionMode: "automatic",
@@ -76,6 +90,7 @@ test("launcher state persists onboarding, language, and autostart atomically", (
       githubOpened: false,
       autoStart: true,
       keepRunningOnClose: false,
+      includePrereleaseUpdates: false,
       showBrowserDuringTurns: true,
       autoApproveToolCalls: false,
       browserInteractionMode: "automatic",
@@ -157,6 +172,7 @@ test("persisted sidebar corruption is repaired without changing the rest of laun
       githubOpened: false,
       autoStart: true,
       keepRunningOnClose: true,
+      includePrereleaseUpdates: false,
       showBrowserDuringTurns: true,
       autoApproveToolCalls: false,
       browserInteractionMode: "automatic",

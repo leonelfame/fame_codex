@@ -13,6 +13,7 @@ export interface LauncherState {
   githubOpened: boolean;
   autoStart: boolean;
   keepRunningOnClose: boolean;
+  includePrereleaseUpdates: boolean;
   showBrowserDuringTurns: boolean;
   autoApproveToolCalls: boolean;
   browserInteractionMode: BrowserInteractionMode;
@@ -135,6 +136,13 @@ export interface LauncherSnapshot {
   update: UpdateState;
 }
 
+export interface ReleaseCheckResult {
+  status: "available" | "up-to-date";
+  latestVersion: string;
+  releaseUrl: string;
+  downloadUrl: string | null;
+}
+
 export interface LauncherApi {
   snapshot(): Promise<LauncherSnapshot>;
   getLimits(): Promise<LimitsSnapshot>;
@@ -186,12 +194,14 @@ export interface LauncherApi {
     targetMode: BrowserInteractionMode;
   }>;
   setPreference(
-    key: "keepRunningOnClose" | "showBrowserDuringTurns",
+    key: "keepRunningOnClose" | "showBrowserDuringTurns" | "includePrereleaseUpdates",
     value: boolean,
   ): Promise<LauncherState>;
   setSidebarState(state: { open: boolean; width: number }): Promise<LauncherState>;
   logs(limit?: number): Promise<LogRecord[]>;
   exportLogs(): Promise<string | null>;
+  checkForUpdates(): Promise<ReleaseCheckResult>;
+  openUpdateRelease(): Promise<boolean>;
   installUpdate(): Promise<boolean>;
   windowState(): Promise<{ fullScreen: boolean; maximized: boolean }>;
   windowControl(action: "close" | "minimize" | "zoom"): void;

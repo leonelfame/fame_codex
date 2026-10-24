@@ -1141,7 +1141,7 @@ test("failed terminal migration verifies the unchanged previous runtime instead 
   ]);
 });
 
-test("failed fresh-conversation setting restores every mutable setup file before restarting the previous runtime", async () => {
+for (const linked of [false, true]) test(`failed fresh-conversation setting restores every mutable setup file (${linked ? "symlink" : "regular file"}) before restarting the previous runtime`, async (t) => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "fame-codex-setup-checkpoint-"));
   const coreHome = path.join(root, "core");
   const codexHome = path.join(root, "codex");
@@ -1177,8 +1177,16 @@ test("failed fresh-conversation setting restores every mutable setup file before
   fs.writeFileSync(profilePath, "old profile\n", { mode: 0o600 });
   fs.mkdirSync(sharedDirectory, { mode: 0o750 });
   fs.writeFileSync(sharedConfigPath, "old codex config\n", { mode: 0o640 });
-  fs.symlinkSync(sharedConfigPath, codexConfigPath);
-  const linkTarget = fs.readlinkSync(codexConfigPath);
+  if (linked) {
+    try { fs.symlinkSync(sharedConfigPath, codexConfigPath); }
+    catch (error) {
+      if (process.platform !== "win32" || error.code !== "EPERM") throw error;
+      fs.rmSync(root, { recursive: true, force: true });
+      t.skip("File symlinks require Windows Developer Mode or elevation");
+      return;
+    }
+  } else fs.copyFileSync(sharedConfigPath, codexConfigPath);
+  const linkTarget = linked ? fs.readlinkSync(codexConfigPath) : null;
   const linkInode = fs.lstatSync(codexConfigPath).ino;
   const directoryMode = fs.statSync(sharedDirectory).mode & 0o777;
   const fileMode = fs.statSync(sharedConfigPath).mode & 0o777;
@@ -1232,9 +1240,11 @@ test("failed fresh-conversation setting restores every mutable setup file before
     assert.equal(fs.readFileSync(keyPath, "utf8"), "old key\n");
     assert.equal(fs.readFileSync(profilePath, "utf8"), "old profile\n");
     assert.equal(fs.readFileSync(codexConfigPath, "utf8"), "old codex config\n");
-    assert.equal(fs.lstatSync(codexConfigPath).isSymbolicLink(), true);
-    assert.equal(fs.lstatSync(codexConfigPath).ino, linkInode);
-    assert.equal(fs.readlinkSync(codexConfigPath), linkTarget);
+    assert.equal(fs.lstatSync(codexConfigPath).isSymbolicLink(), linked);
+    if (linked) {
+      assert.equal(fs.lstatSync(codexConfigPath).ino, linkInode);
+      assert.equal(fs.readlinkSync(codexConfigPath), linkTarget);
+    }
     assert.equal(fs.statSync(sharedDirectory).mode & 0o777, directoryMode);
     assert.equal(fs.statSync(sharedConfigPath).mode & 0o777, fileMode);
     assert.equal(fs.readFileSync(codexModelsCachePath, "utf8"), "old codex models cache\n");
